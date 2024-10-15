@@ -564,12 +564,12 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			Novice::DrawLine(static_cast<int>(player.pos.x + (player.width / 2)), static_cast<int>(player.pos.y + (player.width / 2)),
 				static_cast<int>(player.backPos.x + (player.width / 2)), static_cast<int>(player.backPos.y), 0xFFF00FF);
 		}
-		else if (player.direction == RIGHT)
+		else if (player.direction == LEFT)
 		{
 			Novice::DrawLine(static_cast<int>(player.pos.x + (player.width / 2)), static_cast<int>(player.pos.y + (player.width / 2)),
 				static_cast<int>(player.leftPos.x), static_cast<int>(player.leftPos.y + (player.width / 2)), 0xFFF00FF);
 		}
-		else if (player.direction == LEFT)
+		else if (player.direction == RIGHT)
 		{
 			Novice::DrawLine(static_cast<int>(player.pos.x + (player.width / 2)), static_cast<int>(player.pos.y + (player.width / 2)),
 				static_cast<int>(player.rightPos.x), static_cast<int>(player.rightPos.y + (player.width / 2)), 0xFFF00FF);
