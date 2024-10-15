@@ -334,7 +334,11 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 					player.pos.y -= player.speed;
 
-					
+					player.backPos.y -= player.speed;
+					player.frontPos.y -= player.speed;
+
+					player.leftPos.y -= player.speed;
+					player.rightPos.y -= player.speed;
 
 					if (map[static_cast<int>(player.pos.y / blockSize)][static_cast<int>(player.pos.y / blockSize)] == BLOCK_WALL)
 					{
@@ -365,12 +369,22 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 					player.pos.y += player.speed;
 
+					player.frontPos.y += player.speed;
+					player.backPos.y += player.speed;
+
+					player.leftPos.y += player.speed;
+					player.rightPos.y += player.speed;
+
 					if (map[static_cast<int>(player.pos.y / blockSize)][static_cast<int>(player.pos.x / blockSize)] == BLOCK_WALL)
 					{
 						player.pos.y -= player.speed;
 						robot.pos.y -= robot.speed;
 
-						
+						player.frontPos.y -= player.speed;
+						player.backPos.y -= player.speed;
+
+						player.leftPos.y -= player.speed;
+						player.rightPos.y -= player.speed;
 					}
 
 					//ロボット
@@ -392,14 +406,22 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 					player.pos.x -= player.speed;
 
-					
+					player.backPos.x -= player.speed;
+					player.frontPos.x -= player.speed;
+
+					player.leftPos.x -= player.speed;
+					player.rightPos.x -= player.speed;
 
 					if (map[static_cast<int>(player.pos.y / blockSize)][static_cast<int>(player.pos.x / blockSize)] == BLOCK_WALL)
 					{
 						player.pos.x += player.speed;
 						robot.pos.x += robot.speed;
 
-						
+						player.backPos.x += player.speed;
+						player.frontPos.x += player.speed;
+
+						player.leftPos.x += player.speed;
+						player.rightPos.x += player.speed;
 					}
 
 					//ロボット
@@ -419,14 +441,22 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 					player.pos.x += player.speed;
 
-					
+					player.backPos.x += player.speed;
+					player.frontPos.x += player.speed;
+
+					player.leftPos.x += player.speed;
+					player.rightPos.x += player.speed;
 
 					if (map[static_cast<int>(player.pos.y / blockSize)][static_cast<int>(player.pos.x / blockSize)] == BLOCK_WALL)
 					{
 						player.pos.x -= player.speed;
 						robot.pos.x -= robot.speed;
 
-						
+						player.backPos.x -= player.speed;
+						player.frontPos.x -= player.speed;
+
+						player.leftPos.x -= player.speed;
+						player.rightPos.x -= player.speed;
 					}
 
 					//ロボット
@@ -533,19 +563,16 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		{
 			Novice::DrawLine(static_cast<int>(player.pos.x + (player.width / 2)), static_cast<int>(player.pos.y + (player.width / 2)),
 				static_cast<int>(player.backPos.x + (player.width / 2)), static_cast<int>(player.backPos.y), 0xFFF00FF);
-
-		}
-		else if (player.direction == LEFT)
-		{
-			Novice::DrawLine(static_cast<int>(player.pos.x + (player.width / 2)), static_cast<int>(player.pos.y + (player.width / 2)),
-				static_cast<int>(player.leftPos.x), static_cast<int>(player.leftPos.y + (player.width / 2)), 0xFFF00FF);
-
 		}
 		else if (player.direction == RIGHT)
 		{
 			Novice::DrawLine(static_cast<int>(player.pos.x + (player.width / 2)), static_cast<int>(player.pos.y + (player.width / 2)),
+				static_cast<int>(player.leftPos.x), static_cast<int>(player.leftPos.y + (player.width / 2)), 0xFFF00FF);
+		}
+		else if (player.direction == LEFT)
+		{
+			Novice::DrawLine(static_cast<int>(player.pos.x + (player.width / 2)), static_cast<int>(player.pos.y + (player.width / 2)),
 				static_cast<int>(player.rightPos.x), static_cast<int>(player.rightPos.y + (player.width / 2)), 0xFFF00FF);
-
 		}
 
 		//=======================
