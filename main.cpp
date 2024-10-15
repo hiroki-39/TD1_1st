@@ -235,9 +235,6 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 					player.rightPos.x += player.speed;
 				}
 
-				//ブロックがプレイヤーの前にあるからどうかの判定
-
-
 				//ロボット
 				robot.pos.x -= robot.speed;
 
@@ -472,14 +469,11 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		}
 
 
-
-
-
 		//ブロックを動かす
-		if (map[static_cast<int>(player.pos.y / blockSize) - 1][static_cast<int>(player.pos.x / blockSize)] == BLOCK_BOX ||
-			map[static_cast<int>(player.pos.y / blockSize)][static_cast<int>(player.pos.x / blockSize) - 1] == BLOCK_BOX ||
-			map[static_cast<int>(player.pos.y / blockSize) + 1][static_cast<int>(player.pos.x / blockSize)] == BLOCK_BOX ||
-			map[static_cast<int>(player.pos.y / blockSize)][static_cast<int>(player.pos.x / blockSize + 1)] == BLOCK_BOX)
+		if (map[static_cast<int>(player.frontPos.y / blockSize)][static_cast<int>(player.frontPos.x / blockSize)] == BLOCK_BOX ||
+			map[static_cast<int>(player.backPos.y / blockSize)][static_cast<int>(player.backPos.x / blockSize)] == BLOCK_BOX ||
+			map[static_cast<int>(player.leftPos.y / blockSize)][static_cast<int>(player.leftPos.x / blockSize)] == BLOCK_BOX ||
+			map[static_cast<int>(player.rightPos.y / blockSize)][static_cast<int>(player.rightPos.x / blockSize)] == BLOCK_BOX)
 		{
 			if (keys[DIK_SPACE])
 			{
@@ -554,26 +548,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		Novice::DrawBox(static_cast<int>(player.pos.x), static_cast<int>(player.pos.y),
 			static_cast<int>(player.width), static_cast<int>(player.height), 0.0f, BLUE, kFillModeSolid);
 
-		if (player.direction == FRONT)
-		{
-			Novice::DrawLine(static_cast<int>(player.pos.x + (player.width / 2)), static_cast<int>(player.pos.y + (player.width / 2)),
-				static_cast<int>(player.frontPos.x + (player.width / 2)), static_cast<int>(player.frontPos.y), 0xFFF00FF);
-		}
-		else if (player.direction == BACK)
-		{
-			Novice::DrawLine(static_cast<int>(player.pos.x + (player.width / 2)), static_cast<int>(player.pos.y + (player.width / 2)),
-				static_cast<int>(player.backPos.x + (player.width / 2)), static_cast<int>(player.backPos.y), 0xFFF00FF);
-		}
-		else if (player.direction == LEFT)
-		{
-			Novice::DrawLine(static_cast<int>(player.pos.x + (player.width / 2)), static_cast<int>(player.pos.y + (player.width / 2)),
-				static_cast<int>(player.leftPos.x), static_cast<int>(player.leftPos.y + (player.width / 2)), 0xFFF00FF);
-		}
-		else if (player.direction == RIGHT)
-		{
-			Novice::DrawLine(static_cast<int>(player.pos.x + (player.width / 2)), static_cast<int>(player.pos.y + (player.width / 2)),
-				static_cast<int>(player.rightPos.x), static_cast<int>(player.rightPos.y + (player.width / 2)), 0xFFF00FF);
-		}
+
 
 		//=======================
 		//ロボットの描画処理
@@ -585,7 +560,52 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		//=====================
 		//デバック表示
 		//=====================
-		Novice::ScreenPrintf(0, 520, "map[%d][%d]", static_cast<int>(robot.pos.x), static_cast<int>(robot.pos.y));
+		Novice::ScreenPrintf(0, 520, "player.grabBlock:%d", player.grabBlock);
+
+		if (!player.grabBlock)
+		{
+			if (player.direction == FRONT)
+			{
+				Novice::DrawLine(static_cast<int>(player.pos.x + (player.width / 2)), static_cast<int>(player.pos.y + (player.width / 2)),
+					static_cast<int>(player.frontPos.x + (player.width / 2)), static_cast<int>(player.frontPos.y), 0xFFF00FF);
+			}
+			else if (player.direction == BACK)
+			{
+				Novice::DrawLine(static_cast<int>(player.pos.x + (player.width / 2)), static_cast<int>(player.pos.y + (player.width / 2)),
+					static_cast<int>(player.backPos.x + (player.width / 2)), static_cast<int>(player.backPos.y), 0xFFF00FF);
+			}
+			else if (player.direction == LEFT)
+			{
+				Novice::DrawLine(static_cast<int>(player.pos.x + (player.width / 2)), static_cast<int>(player.pos.y + (player.width / 2)),
+					static_cast<int>(player.leftPos.x), static_cast<int>(player.leftPos.y + (player.width / 2)), 0xFFF00FF);
+			}
+			else if (player.direction == RIGHT)
+			{
+				Novice::DrawLine(static_cast<int>(player.pos.x + (player.width / 2)), static_cast<int>(player.pos.y + (player.width / 2)),
+					static_cast<int>(player.rightPos.x), static_cast<int>(player.rightPos.y + (player.width / 2)), 0xFFF00FF);
+			}
+		}
+
+		if (player.grabBlock)
+		{
+			if (player.direction == FRONT || player.direction == BACK)
+			{
+				Novice::DrawLine(static_cast<int>(player.pos.x + (player.width / 2)), static_cast<int>(player.pos.y + (player.width / 2)),
+					static_cast<int>(player.frontPos.x + (player.width / 2)), static_cast<int>(player.frontPos.y), 0xFFF00FF);
+
+				Novice::DrawLine(static_cast<int>(player.pos.x + (player.width / 2)), static_cast<int>(player.pos.y + (player.width / 2)),
+					static_cast<int>(player.backPos.x + (player.width / 2)), static_cast<int>(player.backPos.y), 0xFFF00FF);
+
+			}
+			else  if (player.direction == LEFT || player.direction == RIGHT)
+			{
+				Novice::DrawLine(static_cast<int>(player.pos.x + (player.width / 2)), static_cast<int>(player.pos.y + (player.width / 2)),
+					static_cast<int>(player.leftPos.x), static_cast<int>(player.leftPos.y + (player.width / 2)), 0xFFF00FF);
+
+				Novice::DrawLine(static_cast<int>(player.pos.x + (player.width / 2)), static_cast<int>(player.pos.y + (player.width / 2)),
+					static_cast<int>(player.rightPos.x), static_cast<int>(player.rightPos.y + (player.width / 2)), 0xFFF00FF);
+			}
+		}
 
 		///
 		/// ↑描画処理ここまで
