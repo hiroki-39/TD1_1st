@@ -44,7 +44,7 @@ typedef struct Player
 	float height;
 	float speed;
 	int direction;
-	int isMove;
+	int grabBlock;
 }Player;
 
 typedef struct Robot
@@ -123,6 +123,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	player.mapPos.x = 0.0f;
 	player.mapPos.y = 0.0f;
 
+	//ブロックの判定
 	player.frontPos.x = 128.0f;
 	player.frontPos.y = 256.0f;
 	player.backPos.x = 128.0f;
@@ -135,10 +136,10 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	player.width = blockSize;
 	player.height = blockSize;
 	player.speed = 64.0f;
+	player.grabBlock = false;
 	player.direction = FRONT;
 
 	/*---ロボット---*/
-	//robot
 	Robot robot;
 	robot.pos.x = 64.0f;
 	robot.pos.y = 64.0f;
@@ -170,135 +171,50 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 		/*---移動処理---*/
 
-		if (keys[DIK_W] && !preKeys[DIK_W])
+		if (!player.grabBlock)
 		{
-			//プレイヤー
-			player.direction = BACK;
-
-			player.pos.y -= player.speed;
-
-			player.backPos.y -= player.speed;
-			player.frontPos.y -= player.speed;
-
-			player.leftPos.y -= player.speed;
-			player.rightPos.y -= player.speed;
-
-			if (map[static_cast<int>(player.pos.y / blockSize)][static_cast<int>(player.pos.x / blockSize)] != BLOCK_FLOOR)
+			if (keys[DIK_W] && !preKeys[DIK_W])
 			{
-				player.pos.y += player.speed;
-				robot.pos.y += robot.speed;
+				//プレイヤー
+				player.direction = BACK;
 
-				player.backPos.y += player.speed;
-				player.frontPos.y += player.speed;
-
-				player.leftPos.y += player.speed;
-				player.rightPos.y += player.speed;
-
-			}
-
-			//ロボット
-			robot.pos.y -= robot.speed;
-
-			if (map[static_cast<int>(robot.pos.y / blockSize)][static_cast<int>(robot.pos.x / blockSize)] == BLOCK_FLOOR ||
-				map[static_cast<int>(robot.pos.y / blockSize)][static_cast<int>(robot.pos.x / blockSize)] == STAGE_WALL)
-			{
-				robot.pos.y += robot.speed;
-			}
-		}
-
-		if (keys[DIK_A] && !preKeys[DIK_A])
-		{
-			//プレイヤー
-			player.direction = LEFT;
-
-			player.pos.x -= player.speed;
-
-			player.backPos.x -= player.speed;
-			player.frontPos.x -= player.speed;
-
-			player.leftPos.x -= player.speed;
-			player.rightPos.x -= player.speed;
-
-
-			if (map[static_cast<int>(player.pos.y / blockSize)][static_cast<int>(player.pos.x / blockSize)] != BLOCK_FLOOR)
-			{
-				player.pos.x += player.speed;
-				robot.pos.x += robot.speed;
-
-				player.backPos.x += player.speed;
-				player.frontPos.x += player.speed;
-
-				player.leftPos.x += player.speed;
-				player.rightPos.x += player.speed;
-			}
-
-			//ブロックがプレイヤーの前にあるからどうかの判定
-
-
-			//ロボット
-			robot.pos.x -= robot.speed;
-
-			if (map[static_cast<int>(robot.pos.y / blockSize)][static_cast<int>(robot.pos.x / blockSize)] == BLOCK_FLOOR ||
-				map[static_cast<int>(robot.pos.y / blockSize)][static_cast<int>(robot.pos.x / blockSize)] == STAGE_WALL)
-			{
-				robot.pos.x += robot.speed;
-			}
-		}
-
-		if (keys[DIK_S] && !preKeys[DIK_S])
-		{
-			//プレイヤー
-			player.direction = FRONT;
-
-			player.pos.y += player.speed;
-
-			player.frontPos.y += player.speed;
-			player.backPos.y += player.speed;
-
-			player.leftPos.y += player.speed;
-			player.rightPos.y += player.speed;
-
-
-			if (map[static_cast<int>(player.pos.y / blockSize)][static_cast<int>(player.pos.x / blockSize)] != BLOCK_FLOOR)
-			{
 				player.pos.y -= player.speed;
-				robot.pos.y -= robot.speed;
 
-				player.frontPos.y -= player.speed;
 				player.backPos.y -= player.speed;
+				player.frontPos.y -= player.speed;
 
 				player.leftPos.y -= player.speed;
 				player.rightPos.y -= player.speed;
 
-			}
+				if (map[static_cast<int>(player.pos.y / blockSize)][static_cast<int>(player.pos.x / blockSize)] != BLOCK_FLOOR)
+				{
+					player.pos.y += player.speed;
+					robot.pos.y += robot.speed;
 
-			//ロボット
-			robot.pos.y += robot.speed;
+					player.backPos.y += player.speed;
+					player.frontPos.y += player.speed;
 
-			if (map[static_cast<int>(robot.pos.y / blockSize)][static_cast<int>(robot.pos.x / blockSize)] == BLOCK_FLOOR ||
-				map[static_cast<int>(robot.pos.y / blockSize)][static_cast<int>(robot.pos.x / blockSize)] == STAGE_WALL)
-			{
+					player.leftPos.y += player.speed;
+					player.rightPos.y += player.speed;
+
+				}
+
+				//ロボット
 				robot.pos.y -= robot.speed;
+
+				if (map[static_cast<int>(robot.pos.y / blockSize)][static_cast<int>(robot.pos.x / blockSize)] == BLOCK_FLOOR ||
+					map[static_cast<int>(robot.pos.y / blockSize)][static_cast<int>(robot.pos.x / blockSize)] == STAGE_WALL)
+				{
+					robot.pos.y += robot.speed;
+				}
 			}
-		}
 
-		if (keys[DIK_D] && !preKeys[DIK_D])
-		{
-			//プレイヤー
-			player.direction = RIGHT;
-
-			player.pos.x += player.speed;
-
-			player.backPos.x += player.speed;
-			player.frontPos.x += player.speed;
-
-			player.leftPos.x += player.speed;
-			player.rightPos.x += player.speed;
-
-			if (map[static_cast<int>(player.pos.y / blockSize)][static_cast<int>(player.pos.x / blockSize)] != BLOCK_FLOOR)
+			if (keys[DIK_A] && !preKeys[DIK_A])
 			{
+				//プレイヤー
+				player.direction = LEFT;
+
 				player.pos.x -= player.speed;
-				robot.pos.x -= robot.speed;
 
 				player.backPos.x -= player.speed;
 				player.frontPos.x -= player.speed;
@@ -307,25 +223,245 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 				player.rightPos.x -= player.speed;
 
 
+				if (map[static_cast<int>(player.pos.y / blockSize)][static_cast<int>(player.pos.x / blockSize)] != BLOCK_FLOOR)
+				{
+					player.pos.x += player.speed;
+					robot.pos.x += robot.speed;
+
+					player.backPos.x += player.speed;
+					player.frontPos.x += player.speed;
+
+					player.leftPos.x += player.speed;
+					player.rightPos.x += player.speed;
+				}
+
+				//ブロックがプレイヤーの前にあるからどうかの判定
+
+
+				//ロボット
+				robot.pos.x -= robot.speed;
+
+				if (map[static_cast<int>(robot.pos.y / blockSize)][static_cast<int>(robot.pos.x / blockSize)] == BLOCK_FLOOR ||
+					map[static_cast<int>(robot.pos.y / blockSize)][static_cast<int>(robot.pos.x / blockSize)] == STAGE_WALL)
+				{
+					robot.pos.x += robot.speed;
+				}
 			}
 
-			//ロボット
-			robot.pos.x += robot.speed;
-
-			if (map[static_cast<int>(robot.pos.y / blockSize)][static_cast<int>(robot.pos.x / blockSize)] == BLOCK_FLOOR ||
-				map[static_cast<int>(robot.pos.y / blockSize)][static_cast<int>(robot.pos.x / blockSize)] == STAGE_WALL)
+			if (keys[DIK_S] && !preKeys[DIK_S])
 			{
-				robot.pos.x -= robot.speed;
+				//プレイヤー
+				player.direction = FRONT;
+
+				player.pos.y += player.speed;
+
+				player.frontPos.y += player.speed;
+				player.backPos.y += player.speed;
+
+				player.leftPos.y += player.speed;
+				player.rightPos.y += player.speed;
+
+
+				if (map[static_cast<int>(player.pos.y / blockSize)][static_cast<int>(player.pos.x / blockSize)] != BLOCK_FLOOR)
+				{
+					player.pos.y -= player.speed;
+					robot.pos.y -= robot.speed;
+
+					player.frontPos.y -= player.speed;
+					player.backPos.y -= player.speed;
+
+					player.leftPos.y -= player.speed;
+					player.rightPos.y -= player.speed;
+
+				}
+
+				//ロボット
+				robot.pos.y += robot.speed;
+
+				if (map[static_cast<int>(robot.pos.y / blockSize)][static_cast<int>(robot.pos.x / blockSize)] == BLOCK_FLOOR ||
+					map[static_cast<int>(robot.pos.y / blockSize)][static_cast<int>(robot.pos.x / blockSize)] == STAGE_WALL)
+				{
+					robot.pos.y -= robot.speed;
+				}
+			}
+
+			if (keys[DIK_D] && !preKeys[DIK_D])
+			{
+				//プレイヤー
+				player.direction = RIGHT;
+
+				player.pos.x += player.speed;
+
+				player.backPos.x += player.speed;
+				player.frontPos.x += player.speed;
+
+				player.leftPos.x += player.speed;
+				player.rightPos.x += player.speed;
+
+				if (map[static_cast<int>(player.pos.y / blockSize)][static_cast<int>(player.pos.x / blockSize)] != BLOCK_FLOOR)
+				{
+					player.pos.x -= player.speed;
+					robot.pos.x -= robot.speed;
+
+					player.backPos.x -= player.speed;
+					player.frontPos.x -= player.speed;
+
+					player.leftPos.x -= player.speed;
+					player.rightPos.x -= player.speed;
+				}
+
+				//ロボット
+				robot.pos.x += robot.speed;
+
+				if (map[static_cast<int>(robot.pos.y / blockSize)][static_cast<int>(robot.pos.x / blockSize)] == BLOCK_FLOOR ||
+					map[static_cast<int>(robot.pos.y / blockSize)][static_cast<int>(robot.pos.x / blockSize)] == STAGE_WALL)
+				{
+					robot.pos.x -= robot.speed;
+				}
 			}
 		}
+
+		//ブロックを掴んでいる時
+		if (player.grabBlock)
+		{
+			//上下
+			if (player.direction == FRONT || player.direction == BACK)
+			{
+				if (keys[DIK_W] && !preKeys[DIK_W])
+				{
+					//プレイヤー
+					player.direction = BACK;
+
+					player.pos.y -= player.speed;
+
+					
+
+					if (map[static_cast<int>(player.pos.y / blockSize)][static_cast<int>(player.pos.y / blockSize)] == BLOCK_WALL)
+					{
+						player.pos.y += player.speed;
+						robot.pos.y += robot.speed;
+
+						player.backPos.y += player.speed;
+						player.frontPos.y += player.speed;
+
+						player.leftPos.y += player.speed;
+						player.rightPos.y += player.speed;
+					}
+
+					//ロボット
+					robot.pos.y -= robot.speed;
+
+					if (map[static_cast<int>(robot.pos.y / blockSize)][static_cast<int>(robot.pos.x / blockSize)] == BLOCK_FLOOR ||
+						map[static_cast<int>(robot.pos.y / blockSize)][static_cast<int>(robot.pos.x / blockSize)] == STAGE_WALL)
+					{
+						robot.pos.y += robot.speed;
+					}
+				}
+
+				if (keys[DIK_S] && !preKeys[DIK_S])
+				{
+					//プレイヤー
+					player.direction = FRONT;
+
+					player.pos.y += player.speed;
+
+					if (map[static_cast<int>(player.pos.y / blockSize)][static_cast<int>(player.pos.x / blockSize)] == BLOCK_WALL)
+					{
+						player.pos.y -= player.speed;
+						robot.pos.y -= robot.speed;
+
+						
+					}
+
+					//ロボット
+					robot.pos.y += robot.speed;
+					if (map[static_cast<int>(robot.pos.y / blockSize)][static_cast<int>(robot.pos.x / blockSize)] == BLOCK_FLOOR ||
+						map[static_cast<int>(robot.pos.y / blockSize)][static_cast<int>(robot.pos.x / blockSize)] == STAGE_WALL)
+					{
+						robot.pos.y -= robot.speed;
+					}
+				}
+			}
+
+			if (player.direction == LEFT || player.direction == RIGHT)
+			{
+				if (keys[DIK_A] && !preKeys[DIK_A])
+				{
+					//プレイヤー
+					player.direction = LEFT;
+
+					player.pos.x -= player.speed;
+
+					
+
+					if (map[static_cast<int>(player.pos.y / blockSize)][static_cast<int>(player.pos.x / blockSize)] == BLOCK_WALL)
+					{
+						player.pos.x += player.speed;
+						robot.pos.x += robot.speed;
+
+						
+					}
+
+					//ロボット
+					robot.pos.x -= robot.speed;
+
+					if (map[static_cast<int>(robot.pos.y / blockSize)][static_cast<int>(robot.pos.x / blockSize)] == BLOCK_FLOOR ||
+						map[static_cast<int>(robot.pos.y / blockSize)][static_cast<int>(robot.pos.x / blockSize)] == STAGE_WALL)
+					{
+						robot.pos.x += robot.speed;
+					}
+				}
+
+				if (keys[DIK_D] && !preKeys[DIK_D])
+				{
+					//プレイヤー
+					player.direction = RIGHT;
+
+					player.pos.x += player.speed;
+
+					
+
+					if (map[static_cast<int>(player.pos.y / blockSize)][static_cast<int>(player.pos.x / blockSize)] == BLOCK_WALL)
+					{
+						player.pos.x -= player.speed;
+						robot.pos.x -= robot.speed;
+
+						
+					}
+
+					//ロボット
+					robot.pos.x += robot.speed;
+
+					if (map[static_cast<int>(robot.pos.y / blockSize)][static_cast<int>(robot.pos.x / blockSize)] == BLOCK_FLOOR ||
+						map[static_cast<int>(robot.pos.y / blockSize)][static_cast<int>(robot.pos.x / blockSize)] == STAGE_WALL)
+					{
+						robot.pos.x -= robot.speed;
+					}
+				}
+			}
+		}
+
+
+
 
 
 		//ブロックを動かす
-		if (keys[DIK_SPACE])
+		if (map[static_cast<int>(player.pos.y / blockSize) - 1][static_cast<int>(player.pos.x / blockSize)] == BLOCK_BOX ||
+			map[static_cast<int>(player.pos.y / blockSize)][static_cast<int>(player.pos.x / blockSize) - 1] == BLOCK_BOX ||
+			map[static_cast<int>(player.pos.y / blockSize) + 1][static_cast<int>(player.pos.x / blockSize)] == BLOCK_BOX ||
+			map[static_cast<int>(player.pos.y / blockSize)][static_cast<int>(player.pos.x / blockSize + 1)] == BLOCK_BOX)
 		{
-
+			if (keys[DIK_SPACE])
+			{
+				player.grabBlock = true;
+			}
+			else
+			{
+				player.grabBlock = false;
+			}
 		}
 
+		// ブロックの当たり判定
 
 
 		///
