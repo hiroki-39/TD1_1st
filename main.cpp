@@ -359,8 +359,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 						robot.pos.y += robot.speed;
 					}
 				}
-
-				if (keys[DIK_S] && !preKeys[DIK_S])
+				else if (keys[DIK_S] && !preKeys[DIK_S])
 				{
 					//プレイヤー
 					player.direction = FRONT;
@@ -384,9 +383,6 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 						player.leftPos.y -= player.speed;
 						player.rightPos.y -= player.speed;
 					}
-
-
-
 
 					//ロボット
 					robot.pos.y += robot.speed;
@@ -522,6 +518,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			if (player.grabBlock)
 			{
 				//ブロックを動かす
+				map[static_cast<int>((player.backPos.y - blockSize / 2) / blockSize)][static_cast<int>(player.backPos.x / blockSize)] = { BLOCK_FLOOR };
 				map[static_cast<int>(player.backPos.y / blockSize)][static_cast<int>(player.backPos.x / blockSize)] = { BLOCK_BOX };
 			}
 
