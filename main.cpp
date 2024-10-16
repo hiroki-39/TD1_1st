@@ -330,14 +330,14 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 					//プレイヤー
 					player.direction = BACK;
 
+					//座標の移動
 					player.pos.y -= player.speed;
-
 					player.backPos.y -= player.speed;
 					player.frontPos.y -= player.speed;
-
 					player.leftPos.y -= player.speed;
 					player.rightPos.y -= player.speed;
 
+					//プレイヤーが壁にぶつかって時、座標を戻す
 					if (map[static_cast<int>(player.pos.y / blockSize)][static_cast<int>(player.pos.x / blockSize)] == BLOCK_WALL)
 					{
 						player.pos.y += player.speed;
@@ -359,7 +359,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 						robot.pos.y += robot.speed;
 					}
 				}
-				else if (keys[DIK_S] && !preKeys[DIK_S])
+
+				if (keys[DIK_S] && !preKeys[DIK_S])
 				{
 					//プレイヤー
 					player.direction = FRONT;
@@ -391,6 +392,17 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 					{
 						robot.pos.y -= robot.speed;
 					}
+				}
+
+				if (map[static_cast<int>(player.frontPos.y / blockSize)][static_cast<int>(player.frontPos.x / blockSize)] == BLOCK_BOX ||
+					map[static_cast<int>(player.backPos.y / blockSize)][static_cast<int>(player.backPos.x / blockSize)] == BLOCK_BOX)
+				{
+
+					isPush = true;
+				}
+				else
+				{
+					isPush = false;
 				}
 			}
 
@@ -465,14 +477,24 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 						robot.pos.x -= robot.speed;
 					}
 				}
+
+				if (map[static_cast<int>(player.leftPos.y / blockSize)][static_cast<int>(player.leftPos.x / blockSize)] == BLOCK_BOX ||
+					map[static_cast<int>(player.rightPos.y / blockSize)][static_cast<int>(player.rightPos.x / blockSize)] == BLOCK_BOX)
+				{
+
+					isPush = true;
+				}
+				else
+				{
+					isPush = false;
+				}
 			}
 		}
-
 
 		/*---ブロックを動かす処理---*/
 
 		//ブロックがプレイヤーが向いてる方向にあるからどうかの判定
-		if (player.direction == FRONT || player.direction == BACK)
+		/*if (player.direction == FRONT || player.direction == BACK)
 		{
 			if (map[static_cast<int>(player.frontPos.y / blockSize)][static_cast<int>(player.frontPos.x / blockSize)] == BLOCK_BOX ||
 				map[static_cast<int>(player.backPos.y / blockSize)][static_cast<int>(player.backPos.x / blockSize)] == BLOCK_BOX)
@@ -485,7 +507,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 				isPush = false;
 			}
 		}
-		else if (player.direction == LEFT || player.direction == RIGHT)
+
+		if (player.direction == LEFT || player.direction == RIGHT)
 		{
 			if (map[static_cast<int>(player.leftPos.y / blockSize)][static_cast<int>(player.leftPos.x / blockSize)] == BLOCK_BOX ||
 				map[static_cast<int>(player.rightPos.y / blockSize)][static_cast<int>(player.rightPos.x / blockSize)] == BLOCK_BOX)
@@ -497,7 +520,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			{
 				isPush = false;
 			}
-		}
+		}*/
 
 		// ブロックの判定
 		if (isPush)
