@@ -170,6 +170,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		//==========================
 
 		/*---移動処理---*/
+		int isPush = false;
 
 		if (!player.grabBlock)
 		{
@@ -337,7 +338,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 					player.leftPos.y -= player.speed;
 					player.rightPos.y -= player.speed;
 
-					if (map[static_cast<int>(player.pos.y / blockSize)][static_cast<int>(player.pos.y / blockSize)] == BLOCK_WALL)
+					if (map[static_cast<int>(player.pos.y / blockSize)][static_cast<int>(player.pos.x / blockSize)] == BLOCK_WALL)
 					{
 						player.pos.y += player.speed;
 						robot.pos.y += robot.speed;
@@ -383,6 +384,9 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 						player.leftPos.y -= player.speed;
 						player.rightPos.y -= player.speed;
 					}
+
+
+
 
 					//ロボット
 					robot.pos.y += robot.speed;
@@ -469,11 +473,38 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		}
 
 
-		//ブロックを動かす
-		if (map[static_cast<int>(player.frontPos.y / blockSize)][static_cast<int>(player.frontPos.x / blockSize)] == BLOCK_BOX ||
-			map[static_cast<int>(player.backPos.y / blockSize)][static_cast<int>(player.backPos.x / blockSize)] == BLOCK_BOX ||
-			map[static_cast<int>(player.leftPos.y / blockSize)][static_cast<int>(player.leftPos.x / blockSize)] == BLOCK_BOX ||
-			map[static_cast<int>(player.rightPos.y / blockSize)][static_cast<int>(player.rightPos.x / blockSize)] == BLOCK_BOX)
+		/*---ブロックを動かす処理---*/
+
+		//ブロックがプレイヤーが向いてる方向にあるからどうかの判定
+		if (player.direction == FRONT || player.direction == BACK)
+		{
+			if (map[static_cast<int>(player.frontPos.y / blockSize)][static_cast<int>(player.frontPos.x / blockSize)] == BLOCK_BOX ||
+				map[static_cast<int>(player.backPos.y / blockSize)][static_cast<int>(player.backPos.x / blockSize)] == BLOCK_BOX)
+			{
+
+				isPush = true;
+			}
+			else
+			{
+				isPush = false;
+			}
+		}
+		else if (player.direction == LEFT || player.direction == RIGHT)
+		{
+			if (map[static_cast<int>(player.leftPos.y / blockSize)][static_cast<int>(player.leftPos.x / blockSize)] == BLOCK_BOX ||
+				map[static_cast<int>(player.rightPos.y / blockSize)][static_cast<int>(player.rightPos.x / blockSize)] == BLOCK_BOX)
+			{
+
+				isPush = true;
+			}
+			else
+			{
+				isPush = false;
+			}
+		}
+
+		// ブロックの判定
+		if (isPush)
 		{
 			if (keys[DIK_SPACE])
 			{
@@ -483,9 +514,18 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			{
 				player.grabBlock = false;
 			}
+
 		}
 
-		// ブロックの当たり判定
+		if (keys[DIK_SPACE] && keys[DIK_S] && !preKeys[DIK_S])
+		{
+			if (player.grabBlock)
+			{
+				//ブロックを動かす
+				map[static_cast<int>(player.backPos.y / blockSize)][static_cast<int>(player.backPos.x / blockSize)] = { BLOCK_BOX };
+			}
+
+		}
 
 
 		///
@@ -548,8 +588,6 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		Novice::DrawBox(static_cast<int>(player.pos.x), static_cast<int>(player.pos.y),
 			static_cast<int>(player.width), static_cast<int>(player.height), 0.0f, BLUE, kFillModeSolid);
 
-
-
 		//=======================
 		//ロボットの描画処理
 		//=======================
@@ -560,7 +598,24 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		//=====================
 		//デバック表示
 		//=====================
-		Novice::ScreenPrintf(0, 520, "player.grabBlock:%d", player.grabBlock);
+		Novice::ScreenPrintf(0, 520, "front:map[%d][%d]",
+			static_cast<int>(player.frontPos.y / blockSize),
+			static_cast<int>(player.frontPos.x / blockSize));
+
+		Novice::ScreenPrintf(150, 520, "back:map[%d][%d]",
+			static_cast<int>(player.backPos.y / blockSize),
+			static_cast<int>(player.backPos.x / blockSize));
+
+		Novice::ScreenPrintf(0, 560, "left:map[%d][%d]",
+			static_cast<int>(player.leftPos.y / blockSize),
+			static_cast<int>(player.leftPos.x / blockSize));
+
+		Novice::ScreenPrintf(150, 560, "right:map[%d][%d]",
+			static_cast<int>(player.rightPos.y / blockSize),
+			static_cast<int>(player.rightPos.x / blockSize));
+
+		Novice::ScreenPrintf(0, 600, "player.grabBlock:%d", player.grabBlock);
+		Novice::ScreenPrintf(0, 620, "player.isPush:%d", isPush);
 
 		if (!player.grabBlock)
 		{
