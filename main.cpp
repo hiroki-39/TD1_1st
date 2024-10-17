@@ -89,8 +89,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		{ 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , },
 		{ 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , },
 		{ 0 , 0 , 1 , 1 , 1 , 1 , 1 , 0 , 0 , },
-		{ 0 , 0 , 1 , 2 , 3 , 2 , 1 , 0 , 0 , },
 		{ 0 , 0 , 1 , 2 , 2 , 2 , 1 , 0 , 0 , },
+		{ 0 , 0 , 1 , 2 , 3 , 2 , 1 , 0 , 0 , },
 		{ 0 , 0 , 1 , 2 , 2 , 2 , 1 , 0 , 0 , },
 		{ 0 , 0 , 1 , 2 , 2 , 2 , 1 , 0 , 0 , },
 		{ 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , },
@@ -100,7 +100,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 	/*---プレイヤー---*/
 	Player player;
-	player.pos.x = 256.0f;
+	player.pos.x = 192.0f;
 	player.pos.y = 256.0f;
 	player.width = blockSize;
 	player.height = blockSize;
@@ -128,7 +128,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	/*---ロボット---*/
 	Robot robot;
 	robot.pos.x = 256.0f;
-	robot.pos.y = 128.0f;
+	robot.pos.y = 256.0f;
 	robot.width = blockSize;
 	robot.height = blockSize;
 	robot.centerPos.x = robot.pos.x + robot.width / 2.0f;
@@ -377,7 +377,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		//ブロックがプレイヤーが向いてる方向にあるからどうかの判定
 		if (player.direction == FRONT)
 		{
-			if (map[static_cast<int>(player.frontPos.y / blockSize)][static_cast<int>(player.frontPos.x / blockSize)] == BLOCK_BOX)
+			if (map[static_cast<int>(player.frontPos.y / blockSize)][static_cast<int>(player.frontPos.x / blockSize)] == BLOCK_BOX && 
+				map[static_cast<int>(robot.pos.y / blockSize)][static_cast<int>(player.pos.x / blockSize)] != BLOCK_BOX)
 			{
 				player.isFrontReady = true;
 				//向きの固定
@@ -386,7 +387,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		}
 		else if (player.direction == BACK)
 		{
-			if (map[static_cast<int>(player.backPos.y / blockSize)][static_cast<int>(player.backPos.x / blockSize)] == BLOCK_BOX)
+			if (map[static_cast<int>(player.backPos.y / blockSize)][static_cast<int>(player.backPos.x / blockSize)] == BLOCK_BOX &&
+				map[static_cast<int>(robot.pos.y / blockSize)][static_cast<int>(player.pos.x / blockSize)] != BLOCK_BOX)
 			{
 				player.isBackReady = true;
 				//向きの固定
@@ -395,7 +397,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		}
 		else if (player.direction == LEFT)
 		{
-			if (map[static_cast<int>(player.leftPos.y / blockSize)][static_cast<int>(player.leftPos.x / blockSize)] == BLOCK_BOX)
+			if (map[static_cast<int>(player.leftPos.y / blockSize)][static_cast<int>(player.leftPos.x / blockSize)] == BLOCK_BOX &&
+				map[static_cast<int>(robot.pos.y / blockSize)][static_cast<int>(player.pos.x / blockSize)] != BLOCK_BOX)
 			{
 				player.isLeftReady = true;
 				//向きの固定
@@ -404,7 +407,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		}
 		else if (player.direction == RIGHT)
 		{
-			if (map[static_cast<int>(player.rightPos.y / blockSize)][static_cast<int>(player.rightPos.x / blockSize)] == BLOCK_BOX)
+			if (map[static_cast<int>(player.rightPos.y / blockSize)][static_cast<int>(player.rightPos.x / blockSize)] == BLOCK_BOX &&
+				map[static_cast<int>(robot.pos.y / blockSize)][static_cast<int>(player.pos.x / blockSize)] != BLOCK_BOX)
 			{
 				player.isRightReady = true;
 				//向きの固定
@@ -681,10 +685,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 					}
 				}
 
-				if (map[static_cast<int>(robot.pos.y / blockSize)][static_cast<int>(robot.pos.x / blockSize)] == BLOCK_BOX)
-				{
 
-				}
 
 			}
 
