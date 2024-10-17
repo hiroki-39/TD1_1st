@@ -172,6 +172,10 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 				player.leftPos.y -= player.speed;
 				player.rightPos.y -= player.speed;
 
+				//フラグを全てfalseに変える
+				player.isFrontReady = false;
+				player.isBackReady = false;
+
 				//プレイヤーが壁とボックスに当たった時、座標を戻す
 				if (map[static_cast<int>(player.pos.y / blockSize)][static_cast<int>(player.pos.x / blockSize)] != BLOCK_FLOOR)
 				{
@@ -210,6 +214,10 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 				player.leftPos.x -= player.speed;
 				player.rightPos.x -= player.speed;
 
+				//フラグを全てfalseに変える
+				player.isLeftReady = false;
+				player.isRightReady = false;
+
 				//プレイヤーが壁とボックスに当たった時、座標を戻す
 				if (map[static_cast<int>(player.pos.y / blockSize)][static_cast<int>(player.pos.x / blockSize)] != BLOCK_FLOOR)
 				{
@@ -247,6 +255,10 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 				player.backPos.y += player.speed;
 				player.leftPos.y += player.speed;
 				player.rightPos.y += player.speed;
+
+				//フラグを全てfalseに変える
+				player.isFrontReady = false;
+				player.isBackReady = false;
 
 				//プレイヤーが壁とボックスに当たった時、座標を戻す
 				if (map[static_cast<int>(player.pos.y / blockSize)][static_cast<int>(player.pos.x / blockSize)] != BLOCK_FLOOR)
@@ -287,6 +299,10 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 				player.leftPos.x += player.speed;
 				player.rightPos.x += player.speed;
 
+				//フラグを全てfalseに変える
+				player.isLeftReady = false;
+				player.isRightReady = false;
+
 				//プレイヤーが壁とボックスに当たった時、座標を戻す
 				if (map[static_cast<int>(player.pos.y / blockSize)][static_cast<int>(player.pos.x / blockSize)] != BLOCK_FLOOR)
 				{
@@ -308,6 +324,59 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 				{
 					robot.pos.x -= robot.speed;
 				}
+			}
+
+			//ブロックがプレイヤーが向いてる方向にあるからどうかの判定
+			if (player.direction == FRONT)
+			{
+				if (map[static_cast<int>(player.frontPos.y / blockSize)][static_cast<int>(player.frontPos.x / blockSize)] == BLOCK_BOX)
+				{
+					player.isFrontReady = true;
+					//向きの固定
+					player.direction = FRONT;
+				}
+			}
+			else if (player.direction == BACK)
+			{
+				if (map[static_cast<int>(player.backPos.y / blockSize)][static_cast<int>(player.backPos.x / blockSize)] == BLOCK_BOX)
+				{
+					player.isBackReady = true;
+					//向きの固定
+					player.direction = BACK;
+				}
+			}
+			else if (player.direction == LEFT)
+			{
+				if (map[static_cast<int>(player.leftPos.y / blockSize)][static_cast<int>(player.leftPos.x / blockSize)] == BLOCK_BOX)
+				{
+					player.isLeftReady = true;
+					//向きの固定
+					player.direction = LEFT;
+				}
+			}
+			else if (player.direction == RIGHT)
+			{
+				if (map[static_cast<int>(player.rightPos.y / blockSize)][static_cast<int>(player.rightPos.x / blockSize)] == BLOCK_BOX)
+				{
+					player.isRightReady = true;
+					//向きの固定
+					player.direction = RIGHT;
+				}
+			}
+
+
+		}
+
+		// スペースを押すとフラグをtrueに変える
+		if (player.isFrontReady || player.isBackReady || player.isLeftReady || player.isRightReady)
+		{
+			if (keys[DIK_SPACE])
+			{
+				player.grabBlock = true;
+			}
+			else
+			{
+				player.grabBlock = false;
 			}
 		}
 
@@ -331,17 +400,34 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 					player.rightPos.y -= player.speed;
 
 					//プレイヤーが壁とボックスに当たった時、座標を戻す
-					if (map[static_cast<int>(player.pos.y / blockSize)][static_cast<int>(player.pos.x / blockSize)] == BLOCK_WALL ||
-						map[static_cast<int>(player.pos.y / blockSize)][static_cast<int>(player.pos.x / blockSize)] == STAGE_WALL)
+					if (player.isBackReady)
 					{
-						player.pos.y += player.speed;
-						robot.pos.y += robot.speed;
-						player.centerPos.y += player.speed;
+						if (map[static_cast<int>(player.backPos.y / blockSize)][static_cast<int>(player.backPos.x / blockSize)] != BLOCK_FLOOR)
+						{
+							player.pos.y += player.speed;
+							robot.pos.y += robot.speed;
+							player.centerPos.y += player.speed;
 
-						player.backPos.y += player.speed;
-						player.frontPos.y += player.speed;
-						player.leftPos.y += player.speed;
-						player.rightPos.y += player.speed;
+							player.backPos.y += player.speed;
+							player.frontPos.y += player.speed;
+							player.leftPos.y += player.speed;
+							player.rightPos.y += player.speed;
+						}
+					}
+					else if (player.isFrontReady)
+					{
+						if (map[static_cast<int>(player.pos.y / blockSize)][static_cast<int>(player.pos.x / blockSize)] == BLOCK_WALL ||
+							map[static_cast<int>(player.pos.y / blockSize)][static_cast<int>(player.pos.x / blockSize)] == STAGE_WALL)
+						{
+							player.pos.y += player.speed;
+							robot.pos.y += robot.speed;
+							player.centerPos.y += player.speed;
+
+							player.frontPos.y += player.speed;
+							player.backPos.y += player.speed;
+							player.leftPos.y += player.speed;
+							player.rightPos.y += player.speed;
+						}
 					}
 
 					//ロボット
@@ -368,17 +454,34 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 					player.rightPos.y += player.speed;
 
 					//プレイヤーが壁とボックスに当たった時、座標を戻す
-					if (map[static_cast<int>(player.pos.y / blockSize)][static_cast<int>(player.pos.x / blockSize)] == BLOCK_WALL ||
-						map[static_cast<int>(player.pos.y / blockSize)][static_cast<int>(player.pos.x / blockSize)] == STAGE_WALL)
+					if (player.isBackReady)
 					{
-						player.pos.y -= player.speed;
-						robot.pos.y -= robot.speed;
-						player.centerPos.y -= player.speed;
+						if (map[static_cast<int>((player.pos.y) / blockSize)][static_cast<int>(player.pos.x / blockSize)] == BLOCK_WALL ||
+							map[static_cast<int>(player.pos.y / blockSize)][static_cast<int>(player.pos.x / blockSize)] == STAGE_WALL)
+						{
+							player.pos.y -= player.speed;
+							robot.pos.y -= robot.speed;
+							player.centerPos.y -= player.speed;
 
-						player.frontPos.y -= player.speed;
-						player.backPos.y -= player.speed;
-						player.leftPos.y -= player.speed;
-						player.rightPos.y -= player.speed;
+							player.frontPos.y -= player.speed;
+							player.backPos.y -= player.speed;
+							player.leftPos.y -= player.speed;
+							player.rightPos.y -= player.speed;
+						}
+					}
+					else if (player.isFrontReady)
+					{
+						if (map[static_cast<int>(player.frontPos.y / blockSize)][static_cast<int>(player.frontPos.x / blockSize)] != BLOCK_FLOOR)
+						{
+							player.pos.y -= player.speed;
+							robot.pos.y -= robot.speed;
+							player.centerPos.y -= player.speed;
+
+							player.frontPos.y -= player.speed;
+							player.backPos.y -= player.speed;
+							player.leftPos.y -= player.speed;
+							player.rightPos.y -= player.speed;
+						}
 					}
 
 					//ロボット
@@ -407,18 +510,36 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 					player.rightPos.x -= player.speed;
 
 					//プレイヤーが壁とボックスに当たった時、座標を戻す
-					if (map[static_cast<int>(player.pos.y / blockSize)][static_cast<int>(player.pos.x / blockSize)] == BLOCK_WALL ||
-						map[static_cast<int>(player.pos.y / blockSize)][static_cast<int>(player.pos.x / blockSize)] == STAGE_WALL)
+					if (player.isLeftReady)
 					{
-						player.pos.x += player.speed;
-						robot.pos.x += robot.speed;
-						player.centerPos.x += player.speed;
+						if (map[static_cast<int>(player.leftPos.y / blockSize)][static_cast<int>(player.leftPos.x / blockSize)] != BLOCK_FLOOR)
+						{
+							player.pos.x += player.speed;
+							robot.pos.x += robot.speed;
+							player.centerPos.x += player.speed;
 
-						player.backPos.x += player.speed;
-						player.frontPos.x += player.speed;
-						player.leftPos.x += player.speed;
-						player.rightPos.x += player.speed;
+							player.backPos.x += player.speed;
+							player.frontPos.x += player.speed;
+							player.leftPos.x += player.speed;
+							player.rightPos.x += player.speed;
+						}
 					}
+					else if (player.isRightReady)
+					{
+						if (map[static_cast<int>(player.pos.y / blockSize)][static_cast<int>(player.pos.x / blockSize)] == BLOCK_WALL ||
+							map[static_cast<int>(player.pos.y / blockSize)][static_cast<int>(player.pos.x / blockSize)] == STAGE_WALL)
+						{
+							player.pos.x += player.speed;
+							robot.pos.x += robot.speed;
+							player.centerPos.x += player.speed;
+
+							player.backPos.x += player.speed;
+							player.frontPos.x += player.speed;
+							player.leftPos.x += player.speed;
+							player.rightPos.x += player.speed;
+						}
+					}
+
 
 					//ロボット
 					robot.pos.x -= robot.speed;
@@ -444,18 +565,36 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 					player.rightPos.x += player.speed;
 
 					//プレイヤーが壁とボックスに当たった時、座標を戻す
-					if (map[static_cast<int>(player.pos.y / blockSize)][static_cast<int>(player.pos.x / blockSize)] == BLOCK_WALL ||
-						map[static_cast<int>(player.pos.y / blockSize)][static_cast<int>(player.pos.x / blockSize)] == STAGE_WALL)
+					if (player.isLeftReady)
 					{
-						player.pos.x -= player.speed;
-						robot.pos.x -= robot.speed;
-						player.centerPos.x -= player.speed;
+						if (map[static_cast<int>(player.pos.y / blockSize)][static_cast<int>(player.pos.x / blockSize)] == BLOCK_WALL ||
+							map[static_cast<int>(player.pos.y / blockSize)][static_cast<int>(player.pos.x / blockSize)] == STAGE_WALL)
+						{
+							player.pos.x -= player.speed;
+							robot.pos.x -= robot.speed;
+							player.centerPos.x -= player.speed;
 
-						player.backPos.x -= player.speed;
-						player.frontPos.x -= player.speed;
-						player.leftPos.x -= player.speed;
-						player.rightPos.x -= player.speed;
+							player.backPos.x -= player.speed;
+							player.frontPos.x -= player.speed;
+							player.leftPos.x -= player.speed;
+							player.rightPos.x -= player.speed;
+						}
 					}
+					else if (player.isRightReady)
+					{
+						if (map[static_cast<int>(player.rightPos.y / blockSize)][static_cast<int>(player.rightPos.x / blockSize)] != BLOCK_FLOOR)
+						{
+							player.pos.x -= player.speed;
+							robot.pos.x -= robot.speed;
+							player.centerPos.x -= player.speed;
+
+							player.backPos.x -= player.speed;
+							player.frontPos.x -= player.speed;
+							player.leftPos.x -= player.speed;
+							player.rightPos.x -= player.speed;
+						}
+					}
+
 
 					//ロボット
 
@@ -468,158 +607,73 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 					}
 				}
 			}
-		}
 
-		//ブロックがプレイヤーが向いてる方向にあるからどうかの判定
-		if (player.direction == FRONT || player.direction == BACK)
-		{
-			if (map[static_cast<int>(player.frontPos.y / blockSize)][static_cast<int>(player.frontPos.x / blockSize)] == BLOCK_BOX ||
-				map[static_cast<int>(player.backPos.y / blockSize)][static_cast<int>(player.backPos.x / blockSize)] == BLOCK_BOX)
-			{
-				if (player.direction == FRONT)
-				{
-					player.isFrontReady = true;
-
-					//向きの固定
-					player.direction = FRONT;
-				}
-				else
-				{
-					player.isFrontReady = false;
-				}
-
-				if (player.direction == BACK)
-				{
-					player.isBackReady = true;
-
-					//向きの固定
-					player.direction = BACK;
-				}
-				else
-				{
-					player.isBackReady = false;
-				}
-
-			}
-
-		}
-
-		if (player.direction == LEFT || player.direction == RIGHT)
-		{
-			if (map[static_cast<int>(player.leftPos.y / blockSize)][static_cast<int>(player.leftPos.x / blockSize)] == BLOCK_BOX ||
-				map[static_cast<int>(player.rightPos.y / blockSize)][static_cast<int>(player.rightPos.x / blockSize)] == BLOCK_BOX)
-			{
-				if (player.direction == LEFT)
-				{
-					player.isLeftReady = true;
-
-					//向きの固定
-
-				}
-				else
-				{
-					player.isLeftReady = false;
-				}
-
-				if (player.direction == RIGHT)
-				{
-					player.isRightReady = true;
-
-					//向きの固定
-
-				}
-				else
-				{
-					player.isRightReady = false;
-				}
-			}
-		}
-
-		// スペースを押すとフラグをtrueに変える
-		if (player.isFrontReady || player.isBackReady || player.isLeftReady || player.isRightReady)
-		{
-			if (keys[DIK_SPACE])
-			{
-				player.grabBlock = true;
-			}
-			else
-			{
-				player.grabBlock = false;
-			}
-
-		}
-
-		/*---ブロックを動かす処理---*/
-		if (player.grabBlock)
-		{
+			/*---ブロックを動かす処理---*/
 			if (player.isBackReady)
 			{
-				if (keys[DIK_SPACE] && keys[DIK_W] && !preKeys[DIK_W])
+				//ブロック後ろに動かす
+				map[static_cast<int>((player.backPos.y + player.height) / blockSize)][static_cast<int>(player.backPos.x / blockSize)] = BLOCK_FLOOR;
+				map[static_cast<int>(player.backPos.y / blockSize)][static_cast<int>(player.backPos.x / blockSize)] = BLOCK_BOX;
+
+
+				//ブロック前に動かす
+				if (keys[DIK_S] && !preKeys[DIK_S])
 				{
-					//ブロックを動かす
-					map[static_cast<int>((player.backPos.y + player.height) / blockSize)][static_cast<int>(player.backPos.x / blockSize)] = { BLOCK_FLOOR };
-					map[static_cast<int>(player.backPos.y / blockSize)][static_cast<int>(player.backPos.x / blockSize)] = { BLOCK_BOX };
+					map[static_cast<int>((player.backPos.y - player.height) / blockSize)][static_cast<int>(player.backPos.x / blockSize)] = BLOCK_FLOOR;
 				}
 
-				if (keys[DIK_SPACE] && keys[DIK_S] && !preKeys[DIK_S])
-				{
-					//ブロックを動かす
-					map[static_cast<int>((player.backPos.y - player.height) / blockSize)][static_cast<int>(player.backPos.x / blockSize)] = { BLOCK_FLOOR };
-					map[static_cast<int>(player.backPos.y / blockSize)][static_cast<int>(player.backPos.x / blockSize)] = { BLOCK_BOX };
-				}
+				map[static_cast<int>(player.backPos.y / blockSize)][static_cast<int>(player.backPos.x / blockSize)] = BLOCK_BOX;
+
 			}
 			else if (player.isFrontReady)
 			{
-				if (keys[DIK_SPACE] && keys[DIK_W] && !preKeys[DIK_W])
+				if (keys[DIK_W] && !preKeys[DIK_W])
 				{
-					//ブロックを動かす
-					map[static_cast<int>((player.frontPos.y + player.height) / blockSize)][static_cast<int>(player.frontPos.x / blockSize)] = { BLOCK_FLOOR };
-					map[static_cast<int>(player.frontPos.y / blockSize)][static_cast<int>(player.frontPos.x / blockSize)] = { BLOCK_BOX };
+					//ブロック後ろに動かす
+					map[static_cast<int>((player.frontPos.y + player.height) / blockSize)][static_cast<int>(player.frontPos.x / blockSize)] = BLOCK_FLOOR;
 				}
+				map[static_cast<int>(player.frontPos.y / blockSize)][static_cast<int>(player.frontPos.x / blockSize)] = { BLOCK_BOX };
 
-				if (keys[DIK_SPACE] && keys[DIK_S] && !preKeys[DIK_S])
-				{
-					//ブロックを動かす
-					map[static_cast<int>((player.frontPos.y - player.height) / blockSize)][static_cast<int>(player.frontPos.x / blockSize)] = { BLOCK_FLOOR };
-					map[static_cast<int>(player.frontPos.y / blockSize)][static_cast<int>(player.frontPos.x / blockSize)] = { BLOCK_BOX };
-				}
+				//ブロック前に動かす
+				map[static_cast<int>((player.frontPos.y - player.height) / blockSize)][static_cast<int>(player.frontPos.x / blockSize)] = BLOCK_FLOOR;
+				map[static_cast<int>(player.frontPos.y / blockSize)][static_cast<int>(player.frontPos.x / blockSize)] = BLOCK_BOX;
+
+
 			}
-
 
 			if (player.isLeftReady)
 			{
-				if (keys[DIK_SPACE] && keys[DIK_A] && !preKeys[DIK_A])
+				//ブロックを動かす
+
+				map[static_cast<int>(player.leftPos.y / blockSize)][static_cast<int>((player.leftPos.x + player.width) / blockSize)] = BLOCK_FLOOR;
+
+				map[static_cast<int>(player.leftPos.y / blockSize)][static_cast<int>(player.leftPos.x / blockSize)] = BLOCK_BOX;
+
+				if (keys[DIK_D] && !preKeys[DIK_D])
 				{
 					//ブロックを動かす
-					map[static_cast<int>(player.rightPos.y / blockSize)][static_cast<int>((player.rightPos.x + player.width) / blockSize)] = { BLOCK_FLOOR };
-					map[static_cast<int>(player.rightPos.y / blockSize)][static_cast<int>(player.rightPos.x / blockSize)] = { BLOCK_BOX };
+					map[static_cast<int>(player.leftPos.y / blockSize)][static_cast<int>((player.leftPos.x - player.width) / blockSize)] = BLOCK_FLOOR;
 				}
 
-				if (keys[DIK_SPACE] && keys[DIK_D] && !preKeys[DIK_D])
-				{
-					//ブロックを動かす
-					map[static_cast<int>(player.rightPos.y / blockSize)][static_cast<int>((player.rightPos.x - player.width) / blockSize)] = { BLOCK_FLOOR };
-					map[static_cast<int>(player.rightPos.y / blockSize)][static_cast<int>(player.rightPos.x / blockSize)] = { BLOCK_BOX };
-				}
+				map[static_cast<int>(player.leftPos.y / blockSize)][static_cast<int>(player.leftPos.x / blockSize)] = BLOCK_BOX;
+
 			}
 			else if (player.isRightReady)
 			{
-				if (keys[DIK_SPACE] && keys[DIK_A] && !preKeys[DIK_A])
+				if (keys[DIK_D] && !preKeys[DIK_D])
 				{
 					//ブロックを動かす
-					map[static_cast<int>(player.rightPos.y / blockSize)][static_cast<int>((player.rightPos.x + player.width) / blockSize)] = { BLOCK_FLOOR };
-					map[static_cast<int>(player.rightPos.y / blockSize)][static_cast<int>(player.rightPos.x / blockSize)] = { BLOCK_BOX };
+					map[static_cast<int>(player.rightPos.y / blockSize)][static_cast<int>((player.rightPos.x + player.width) / blockSize)] = BLOCK_FLOOR;
 				}
 
-				if (keys[DIK_SPACE] && keys[DIK_D] && !preKeys[DIK_D])
-				{
-					//ブロックを動かす
-					map[static_cast<int>(player.rightPos.y / blockSize)][static_cast<int>((player.rightPos.x - player.width) / blockSize)] = { BLOCK_FLOOR };
-					map[static_cast<int>(player.rightPos.y / blockSize)][static_cast<int>(player.rightPos.x / blockSize)] = { BLOCK_BOX };
-				}
+				map[static_cast<int>(player.rightPos.y / blockSize)][static_cast<int>(player.rightPos.x / blockSize)] = BLOCK_BOX;
+
+				//ブロックを動かす
+				map[static_cast<int>(player.rightPos.y / blockSize)][static_cast<int>((player.rightPos.x - player.width) / blockSize)] = BLOCK_FLOOR;
+				map[static_cast<int>(player.rightPos.y / blockSize)][static_cast<int>(player.rightPos.x / blockSize)] = BLOCK_BOX;
 			}
-		}
 
+		}
 
 		///
 		/// ↑更新処理ここまで
