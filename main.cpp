@@ -30,7 +30,7 @@ enum Block
 	BLOCK_BOX,
 	BLOCK_GOOL,
 	BLOCK_DASH,
-	
+
 };
 
 typedef struct Player
@@ -88,11 +88,11 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	{
 		{ 0,0,0,0,0,0,0,0, },
 		{ 0,1,1,1,1,1,1,0, },
-	    { 0,1,2,2,2,2,1,0, },
-	    { 0,1,2,2,3,2,1,0, },
-	    { 0,1,2,2,2,2,1,0, },
-	    { 0,1,2,2,2,2,1,0, },
-	    { 0,2,2,2,2,2,1,0, },
+		{ 0,1,2,2,2,2,1,0, },
+		{ 0,1,2,2,3,2,1,0, },
+		{ 0,1,2,2,2,2,1,0, },
+		{ 0,1,2,2,2,2,1,0, },
+		{ 0,2,2,2,2,2,1,0, },
 		{ 0,0,0,0,0,0,0,0, },
 
 	};
@@ -331,7 +331,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 					player.rightPos.y -= player.speed;
 
 					//プレイヤーが壁とボックスに当たった時、座標を戻す
-					if (map[static_cast<int>(player.pos.y / blockSize)][static_cast<int>(player.pos.x / blockSize)] == BLOCK_WALL || 
+					if (map[static_cast<int>(player.pos.y / blockSize)][static_cast<int>(player.pos.x / blockSize)] == BLOCK_WALL ||
 						map[static_cast<int>(player.pos.y / blockSize)][static_cast<int>(player.pos.x / blockSize)] == STAGE_WALL)
 					{
 						player.pos.y += player.speed;
@@ -357,7 +357,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 				if (keys[DIK_S] && !preKeys[DIK_S])
 				{
 					/*---プレイヤー---*/
-					
+
 					//座標の更新
 					player.pos.y += player.speed;
 					player.centerPos.y += player.speed;
@@ -396,7 +396,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 				if (keys[DIK_A] && !preKeys[DIK_A])
 				{
 					/*---プレイヤー---*/
-					
+
 					//座標の更新
 					player.pos.x -= player.speed;
 					player.centerPos.x -= player.speed;
@@ -479,48 +479,58 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 				if (player.direction == FRONT)
 				{
 					player.isFrontReady = true;
-					player.isBackReady = false;
-					player.isRightReady = false;
-					player.isLeftReady = false;
 
 					//向きの固定
 					player.direction = FRONT;
 				}
-				else if (player.direction == BACK)
+				else
 				{
 					player.isFrontReady = false;
+				}
+
+				if (player.direction == BACK)
+				{
 					player.isBackReady = true;
-					player.isRightReady = false;
-					player.isLeftReady = false;
 
 					//向きの固定
 					player.direction = BACK;
 				}
+				else
+				{
+					player.isBackReady = false;
+				}
+
 			}
 
 		}
-		else if (player.direction == LEFT || player.direction == RIGHT)
+
+		if (player.direction == LEFT || player.direction == RIGHT)
 		{
 			if (map[static_cast<int>(player.leftPos.y / blockSize)][static_cast<int>(player.leftPos.x / blockSize)] == BLOCK_BOX ||
 				map[static_cast<int>(player.rightPos.y / blockSize)][static_cast<int>(player.rightPos.x / blockSize)] == BLOCK_BOX)
 			{
 				if (player.direction == LEFT)
 				{
-					player.isFrontReady = false;
-					player.isBackReady = false;
 					player.isLeftReady = true;
-					player.isRightReady = false;
+
 					//向きの固定
-					player.direction = LEFT;
+
 				}
-				else if (player.direction == RIGHT)
+				else
 				{
-					player.isFrontReady = false;
-					player.isBackReady = false;
 					player.isLeftReady = false;
+				}
+
+				if (player.direction == RIGHT)
+				{
 					player.isRightReady = true;
+
 					//向きの固定
-					player.direction = RIGHT;
+
+				}
+				else
+				{
+					player.isRightReady = false;
 				}
 			}
 		}
