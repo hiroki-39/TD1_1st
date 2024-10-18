@@ -70,6 +70,9 @@ typedef struct Player
 	int isBackReady;
 	int isLeftReady;
 	int isRightReady;
+	int animationCount;
+	int frameCount;
+	int isMoving;
 }Player;
 
 typedef struct Robot
@@ -116,7 +119,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	// 8 = ダッシュパネル右 (BLOCK_DASH_RIGHT)
 	// 9 = アイテム (BLOCK_ITEM)
 	// 10 = 空白 (BLOCK_AIR)
-	
+
 	//ステージ1
 	int map[kMapSize][kMapSize] =
 	{
@@ -172,7 +175,12 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	player.isLeftReady = false;
 	player.isRightReady = false;
 	player.isItemGet = false;
+	player.isMoving = false;
 	player.direction = FRONT;
+
+	//アニメーショ
+	player.animationCount = 0;
+	player.frameCount = 0;
 
 	/*---ロボット---*/
 	Robot robot;
@@ -371,13 +379,21 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		//プレイヤーとロボットの更新処理
 		//==========================
 
-		/*---移動処理---*/
+			if (!keys[DIK_W] || !keys[DIK_A] || !keys[DIK_S] || !keys[DIK_D])
+			{
+				player.isMoving = false;
+			}
+
+			/*---移動処理---*/
 			if (!player.grabBlock)
 			{
 				//上
 				if (keys[DIK_W] && !preKeys[DIK_W])
 				{
+
 					/*---プレイヤー---*/
+					player.isMoving = true;
+
 					//向いている方向
 					player.direction = BACK;
 
@@ -431,10 +447,13 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 					}
 				}
 
+
 				//左
 				if (keys[DIK_A] && !preKeys[DIK_A])
 				{
 					//プレイヤー
+
+					player.isMoving = true;
 					player.direction = LEFT;
 
 					//座標の更新
@@ -492,6 +511,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 				{
 					/*---プレイヤー---*/
 					//向いている方向
+					player.isMoving = true;
 					player.direction = FRONT;
 
 					//座標の更新
@@ -551,7 +571,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 					/*---プレイヤー---*/
 					//向いている方向
 					player.direction = RIGHT;
-
+					player.isMoving = true;
 					//座標の更新
 					player.pos.x += player.speed;
 					player.centerPos.x += player.speed;
@@ -600,6 +620,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 						robot.pos.x -= robot.speed;
 					}
 				}
+
 
 
 			}
@@ -1003,8 +1024,27 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 					map[static_cast<int>(player.rightPos.y / blockSize)][static_cast<int>(player.rightPos.x / blockSize)] = BLOCK_BOX;
 				}
 
-				
+
 			}
+
+
+			//==============================
+			//フレームタイマーのカウント
+			//==============================
+
+			player.frameCount++;
+
+			if (player.frameCount > 59)
+			{
+				player.frameCount = 0;
+			}
+
+			player.animationCount = player.frameCount / 15;
+
+
+			//==============================
+			//ステージギミックの更新処理
+			//==============================
 
 			/*---アイテムの更新処理---*/
 			if (map[static_cast<int>(player.pos.y / blockSize)][static_cast<int>(player.pos.x / blockSize)] == BLOCK_ITEM)
@@ -1155,8 +1195,17 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			//プレイヤーの描画処理
 			//=======================
 
-			Novice::DrawBox(static_cast<int>(player.pos.x), static_cast<int>(player.pos.y),
-				static_cast<int>(player.width), static_cast<int>(player.height), 0.0f, BLUE, kFillModeSolid);
+			if (player.isMoving)
+			{
+				Novice::DrawBox(static_cast<int>(player.pos.x), static_cast<int>(player.pos.y),
+					static_cast<int>(player.width), static_cast<int>(player.height), 0.0f, BLUE, kFillModeSolid);
+			}
+			else
+			{
+				Novice::DrawBox(static_cast<int>(player.pos.x), static_cast<int>(player.pos.y),
+					static_cast<int>(player.width), static_cast<int>(player.height), 0.0f, RED, kFillModeSolid);
+			}
+
 
 			//=======================
 			//ロボットの描画処理
