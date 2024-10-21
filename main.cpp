@@ -90,7 +90,8 @@ typedef struct Robot
 //========================
 // ウィンドウ
 const float kWindowWidth = 896.0f;
-const float kWindowHeight = 640.0f;
+const float kWindowHeight = 740.0f;
+//640
 
 // ステージ数
 const int kMaxStages = 7;
@@ -185,7 +186,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 		{ 10,10,10, 0, 0, 0, 0, 0, 0, 0,10,10, },
 		{ 10,10,10, 0, 4, 7, 1, 2, 9, 0,10,10, },
 		{ 10,10,10, 0, 5, 2, 2, 3, 2, 0,10,10, },
-		{ 10,10,10, 0, 2, 2, 2, 2, 3, 0,10,10, },//
+		{ 10,10,10, 0, 2, 2, 2, 2, 3, 0,10,10, },
 		{ 10,10,10, 0, 2, 2, 3, 2, 2, 0,10,10, },
 		{ 10,10,10, 0, 1, 1, 9, 3, 1, 0,10,10, },
 		{ 10,10,10, 0, 0, 0, 0, 0, 0, 0,10,10, },
@@ -299,8 +300,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 
 	/*---プレイヤー---*/
 	Player player;
-	player.pos.x = 320.0f;
-	player.pos.y = 192.0f;
+	player.pos.x = 0.0f;
+	player.pos.y = 0.0f;
 	player.width = kBlockSize;
 	player.height = kBlockSize;
 	player.centerPos.x = player.pos.x + player.width / 2.0f;
@@ -334,8 +335,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 
 	/*---ロボット---*/
 	Robot robot;
-	robot.pos.x = 256.0f;
-	robot.pos.y = 128.0f;
+	robot.pos.x = 0.0f;
+	robot.pos.y = 0.0f;
 	robot.width = kBlockSize;
 	robot.height = kBlockSize;
 	robot.centerPos.x = robot.pos.x + robot.width / 2.0f;
@@ -554,7 +555,24 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 					}
 				}
 
+				//タイマーの起動
 				isTimerStart = true;
+				//各ステージの座標に更新
+				player.centerPos.x = player.pos.x + player.width / 2.0f;
+				player.centerPos.y = player.pos.y + player.height / 2.0f;
+
+				player.frontPos.x = player.centerPos.x;
+				player.frontPos.y = player.centerPos.y + player.height;
+				player.backPos.x = player.centerPos.x;
+				player.backPos.y = player.centerPos.y - player.height;
+				player.rightPos.x = player.centerPos.x + player.width;
+				player.rightPos.y = player.centerPos.y;
+				player.leftPos.x = player.centerPos.x - player.width;
+				player.leftPos.y = player.centerPos.y;
+
+				robot.centerPos.x = robot.pos.x + robot.width / 2.0f;
+				robot.centerPos.y = robot.pos.y + robot.height / 2.0f;
+
 				scene = GAME;
 			}
 
@@ -1734,6 +1752,58 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 			/// ↑描画処理ここまで
 			///
 
+			/*Novice::ScreenPrintf(20, 40, "%d:%02d", limitTimer / 60, limitTimer % 60);
+			Novice::ScreenPrintf(20, 60, "stars:%d", stars);
+
+			Novice::ScreenPrintf(0, 600, "front:stage1[%d][%d]",
+				static_cast<int>(player.frontPos.y / kBlockSize),
+				static_cast<int>(player.frontPos.x / kBlockSize));
+
+			Novice::ScreenPrintf(170, 600, "back:stage1[%d][%d]",
+				static_cast<int>(player.backPos.y / kBlockSize),
+				static_cast<int>(player.backPos.x / kBlockSize));
+
+			Novice::ScreenPrintf(0, 620, "left:stage1[%d][%d]",
+				static_cast<int>(player.leftPos.y / kBlockSize),
+				static_cast<int>(player.leftPos.x / kBlockSize));
+
+			Novice::ScreenPrintf(170, 620, "right:stage1[%d][%d]",
+				static_cast<int>(player.rightPos.y / kBlockSize),
+				static_cast<int>(player.rightPos.x / kBlockSize));
+
+			Novice::ScreenPrintf(350, 600, "player.backPos.x.:%d", static_cast<int>(player.backPos.x));
+			Novice::ScreenPrintf(540, 600, "player.backPos.y:%d", static_cast<int>(player.backPos.y));
+			Novice::ScreenPrintf(350, 620, "robot.centerPos.x:%d", static_cast<int>(robot.centerPos.x));
+			Novice::ScreenPrintf(540, 620, "robot.centerPos.y:%d", static_cast<int>(robot.centerPos.y));
+			Novice::ScreenPrintf(350, 660, "player.isItemGet:%d", player.isItemGet);
+
+			Novice::ScreenPrintf(0, 660, "player.grabBlock:%d", player.grabBlock);
+
+			Novice::ScreenPrintf(0, 700, "player.isFrontReady:%d", player.isFrontReady);
+			Novice::ScreenPrintf(300, 700, "player.isBackReady:%d", player.isBackReady);
+			Novice::ScreenPrintf(0, 720, "player.isLeftReady:%d", player.isLeftReady);
+			Novice::ScreenPrintf(300, 720, "player.isRightReady:%d", player.isRightReady);
+
+			if (player.direction == FRONT)
+			{
+				Novice::DrawLine(static_cast<int>(player.centerPos.x), static_cast<int>(player.centerPos.y),
+					static_cast<int>(player.frontPos.x), static_cast<int>(player.frontPos.y), 0xFFF00FF);
+			}
+			else if (player.direction == BACK)
+			{
+				Novice::DrawLine(static_cast<int>(player.centerPos.x), static_cast<int>(player.centerPos.y),
+					static_cast<int>(player.backPos.x), static_cast<int>(player.backPos.y), 0xFFF00FF);
+			}
+			else if (player.direction == LEFT)
+			{
+				Novice::DrawLine(static_cast<int>(player.centerPos.x), static_cast<int>(player.centerPos.y),
+					static_cast<int>(player.leftPos.x), static_cast<int>(player.leftPos.y), 0xFFF00FF);
+			}
+			else if (player.direction == RIGHT)
+			{
+				Novice::DrawLine(static_cast<int>(player.centerPos.x), static_cast<int>(player.centerPos.y),
+					static_cast<int>(player.rightPos.x), static_cast<int>(player.rightPos.y), 0xFFF00FF);
+			}*/
 
 #pragma endregion
 			break;
