@@ -90,11 +90,11 @@ typedef struct Robot
 //========================
 // ウィンドウ
 const float kWindowWidth = 896.0f;
-const float kWindowHeight = 740.0f;
+const float kWindowHeight = 640.0f;
 //640
 
 // ステージ数
-const int kMaxStages = 7;
+const int kMaxStages = 5;
 
 const char kWindowTitle[] = "LC1B_カトウ_ダイドウ_モリ_はたらくハコビヤ";
 
@@ -137,13 +137,13 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 	   //ステージ1
 	const int stage1[kMapSizeY][kMapSizeX] =
 	{
-		{ 10,10,10,10,10,10,10,10,10,10,10,10, },
-		{ 10,10,10, 0, 0, 0, 0, 0, 0, 0,10,10, },
-		{ 10,10,10, 0, 2, 2, 2, 2, 2, 0,10,10, },
+		{ 10,10,10,10,10,10,10,10,10,10,10,10, },// r:x 256 y128
+		{ 10,10,10, 0, 0, 0, 0, 0, 0, 0,10,10, },// p:x 256 y192
+		{ 10,10,10, 0, 1, 1, 9, 1, 1, 0,10,10, },
+		{ 10,10,10, 0, 2, 2, 3, 2, 6, 0,10,10, },
+		{ 10,10,10, 0, 2, 2, 2, 2, 4, 0,10,10, },
 		{ 10,10,10, 0, 2, 3, 2, 2, 2, 0,10,10, },
-		{ 10,10,10, 0, 2, 2, 2, 2, 2, 0,10,10, },
-		{ 10,10,10, 0, 2, 2, 2, 2, 2, 0,10,10, },
-		{ 10,10,10, 0, 2, 2, 2, 2, 2, 0,10,10, },
+		{ 10,10,10, 0, 1, 2, 2, 3, 1, 0,10,10, },
 		{ 10,10,10, 0, 0, 0, 0, 0, 0, 0,10,10, },
 		{ 10,10,10,10,10,10,10,10,10,10,10,10, },
 		{ 10,10,10,10,10,10,10,10,10,10,10,10, },
@@ -167,13 +167,13 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 	//ステージ3
 	const int stage3[kMapSizeY][kMapSizeX] =
 	{
-		{ 10,10,10,10,10,10,10,10,10,10,10,10, },
-		{ 10,10,10, 0, 0, 0, 0, 0, 0, 0,10,10, },
-		{ 10,10,10, 0, 1, 2, 2, 3, 9, 0,10,10, },
-		{ 10,10,10, 0, 2, 3, 2, 2, 1, 0,10,10, },
-		{ 10,10,10, 0, 2, 2, 2, 4, 7, 0,10,10, },
-		{ 10,10,10, 0, 3, 2, 3, 3, 2, 0,10,10, },
-		{ 10,10,10, 0, 9, 1, 2, 1, 1, 0,10,10, },
+		{ 10,10,10,10,10,10,10,10,10,10,10,10, },//p:x 384 y 256
+		{ 10,10,10, 0, 0, 0, 0, 0, 0, 0,10,10, },//r:x 512 y 192
+		{ 10,10,10, 0, 1, 2, 1, 9, 1, 0,10,10, },
+		{ 10,10,10, 0, 1, 3, 2, 3, 1, 0,10,10, },
+		{ 10,10,10, 0, 1, 2, 2, 3, 1, 0,10,10, },
+		{ 10,10,10, 0, 6, 2, 3, 2, 1, 0,10,10, },
+		{ 10,10,10, 0, 4, 7, 9, 2, 1, 0,10,10, },
 		{ 10,10,10, 0, 0, 0, 0, 0, 0, 0,10,10, },
 		{ 10,10,10,10,10,10,10,10,10,10,10,10, },
 		{ 10,10,10,10,10,10,10,10,10,10,10,10, },
@@ -197,13 +197,13 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 	//ステージ5
 	const int stage5[kMapSizeY][kMapSizeX] =
 	{
-		{ 10,10,10,10,10,10,10,10,10,10,10,10, },
-		{ 10,10,10, 0, 0, 0, 0, 0, 0, 0,10,10, },
-		{ 10,10,10, 0, 4, 7, 1, 2, 9, 0,10,10, },
-		{ 10,10,10, 0, 5, 2, 2, 3, 2, 0,10,10, },
-		{ 10,10,10, 0, 2, 2, 2, 2, 3, 0,10,10, },
-		{ 10,10,10, 0, 2, 2, 3, 2, 2, 0,10,10, },
-		{ 10,10,10, 0, 1, 1, 9, 3, 1, 0,10,10, },
+		{ 10,10,10,10,10,10,10,10,10,10,10,10, },//p:x 448 y 192
+		{ 10,10,10, 0, 0, 0, 0, 0, 0, 0,10,10, },//r:x 512 y 256
+		{ 10,10,10, 0, 9, 3, 3, 2, 1, 0,10,10, },
+		{ 10,10,10, 0, 6, 2, 2, 2, 1, 0,10,10, },
+		{ 10,10,10, 0, 4, 7, 2, 2, 1, 0,10,10, },
+		{ 10,10,10, 0, 5, 2, 2, 3, 3, 0,10,10, },
+		{ 10,10,10, 0, 1, 1, 9, 3, 9, 0,10,10, },
 		{ 10,10,10, 0, 0, 0, 0, 0, 0, 0,10,10, },
 		{ 10,10,10,10,10,10,10,10,10,10,10,10, },
 		{ 10,10,10,10,10,10,10,10,10,10,10,10, },
@@ -397,7 +397,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 	robotHoldItemHandle[2] = Novice::LoadTexture("./Resources/images/robot_item_back.png");
 	robotHoldItemHandle[3] = Novice::LoadTexture("./Resources/images/robot_item_right.png");
 
-	//
+	//タイマー
 	int numberHandle[10];
 	numberHandle[0] = Novice::LoadTexture("./Resources/images/0.png");
 	numberHandle[1] = Novice::LoadTexture("./Resources/images/1.png");
@@ -410,17 +410,56 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 	numberHandle[8] = Novice::LoadTexture("./Resources/images/8.png");
 	numberHandle[9] = Novice::LoadTexture("./Resources/images/9.png");
 
+	int secondsHandle = Novice::LoadTexture("./Resources/images/seconds.png");
+	int rimitHandle = Novice::LoadTexture("./Resources/images/rimit.png");
+	int timerBackGraundHandle = Novice::LoadTexture("./Resources/images/timerBackGraund.png");
+
 	//マップチップ
 	int wallBlockHandle = Novice::LoadTexture("./Resources/images/blockWall.png");
 	int floorBlockHandle = Novice::LoadTexture("./Resources/images/floor.png");
-	int DashPanelHandle = Novice::LoadTexture("./Resources/images/conveyor.png");
+	int DashPanelHandle[4];
+	DashPanelHandle[0] = Novice::LoadTexture("./Resources/images/dashUp.png");
+	DashPanelHandle[1] = Novice::LoadTexture("./Resources/images/dashDown.png");
+	DashPanelHandle[2] = Novice::LoadTexture("./Resources/images/dashLeft.png");
+	DashPanelHandle[3] = Novice::LoadTexture("./Resources/images/dashRight.png");
+
 	int goalHandle = Novice::LoadTexture("./Resources/images/goal.png");
 	int stageWallHandle = Novice::LoadTexture("./Resources/images/stageWall.png");
 	int blockBoxHandle = Novice::LoadTexture("./Resources/images/box.png");
 	int ItemHandle = Novice::LoadTexture("./Resources/images/item.png");
 
 	//背景
-	int backgroundHandle = Novice::LoadTexture("./Resources/images/background.png");
+	int backgroundHandle = Novice::LoadTexture("./Resources/images/gameBackground.png");
+	//タイトル
+	int titleHandle = Novice::LoadTexture("./Resources/images/Title.png");
+	//ステージ選択
+	int stageSelectHandle = Novice::LoadTexture("./Resources/images/stageSelectBackGraund.png");
+	int selectMojiHandle = Novice::LoadTexture("./Resources/images/stageSelect_char.png");
+	int selectHandle[5];
+	selectHandle[0] = Novice::LoadTexture("./Resources/images/selectStage1.png");
+	selectHandle[1] = Novice::LoadTexture("./Resources/images/selectStage2.png");
+	selectHandle[2] = Novice::LoadTexture("./Resources/images/selectStage3.png");
+	selectHandle[3] = Novice::LoadTexture("./Resources/images/selectStage4.png");
+	selectHandle[4] = Novice::LoadTexture("./Resources/images/selectStage5.png");
+
+	int selectCursor = Novice::LoadTexture("./Resources/images/stageSelectCursor.png");
+	//ゲームクリア
+	int stageClearHandle = Novice::LoadTexture("./Resources/images/stageClear.png");
+	//ゲームオーバー
+	int gameOverHandle = Novice::LoadTexture("./Resources/images/gameOver.png");
+	//ボタン
+	int botanHandle = Novice::LoadTexture("./Resources/images/botan.png");
+	int serectBotanHandle = Novice::LoadTexture("./Resources/images/pressSpaceSerect.png");
+
+	//説明
+	int explanationHandle[2];
+	explanationHandle[0] = Novice::LoadTexture("./Resources/images/control_wasd.png");
+	explanationHandle[1] = Novice::LoadTexture("./Resources/images/control_space.png");
+
+	/*---BGM,SE---*/
+	//BGM
+
+	//SE
 
 	// ウィンドウの×ボタンが押されるまでループ
 	while (Novice::ProcessMessage() == 0)
@@ -464,7 +503,9 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 			//========================
 			//文字の描画処理
 			//========================
-			Novice::ScreenPrintf(340, 360, ">GAMESTART");
+			Novice::DrawSprite(0, 0, titleHandle, 1.0f, 1.0f, 0.0f, WHITE);
+
+			Novice::DrawSprite(260, 400, botanHandle, 1.0f, 1.0f, 0.0f, WHITE);
 
 			///
 			/// ↑描画処理ここまで
@@ -505,7 +546,10 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 						if (nextStage == 1)
 						{
 							currentStage[i][j] = stage1[i][j];
-
+							player.pos.x = 256.0f;
+							player.pos.y = 192.0f;
+							robot.pos.x = 256.0f;
+							robot.pos.y = 128.0f;
 						}
 						else if (nextStage == 2)
 						{
@@ -519,6 +563,10 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 						else if (nextStage == 3)
 						{
 							currentStage[i][j] = stage3[i][j];
+							player.pos.x = 384.0f;
+							player.pos.y = 256.0f;
+							robot.pos.x = 512.0f;
+							robot.pos.y = 192.0f;
 						}
 						else if (nextStage == 4)
 						{
@@ -531,8 +579,12 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 						else if (nextStage == 5)
 						{
 							currentStage[i][j] = stage5[i][j];
+							player.pos.x = 448.0f;
+							player.pos.y = 192.0f;
+							robot.pos.x = 512.0f;
+							robot.pos.y = 256.0f;
 						}
-						else if (nextStage == 6)
+						/*else if (nextStage == 6)
 						{
 							currentStage[i][j] = stage6[i][j];
 						}
@@ -551,7 +603,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 						else if (nextStage == 10)
 						{
 							currentStage[i][j] = stage10[i][j];
-						}
+						}*/
 					}
 				}
 
@@ -587,21 +639,21 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 			//========================
 			//文字の描画処理
 			//========================
+			Novice::DrawSprite(0, 0, stageSelectHandle, 1.0f, 1.0f, 0.0f, WHITE);
+			Novice::DrawSprite(280, 70, selectMojiHandle, 1.0f, 1.0f, 0.0f, WHITE);
+
 			for (int i = 1; i <= kMaxStages; i++)
 			{
+				// ステージ名
+				Novice::DrawSprite(70 + 160 * (i - 1), 200, selectHandle[i - 1], 0.5f, 0.5f, 0.0f, WHITE);
 
 				if (nextStage == i)
 				{
-
 					// 印
-					Novice::ScreenPrintf(0 + 120 * i, 100, ">", i);
-
-
+					Novice::DrawSprite(70 + 160 * (i - 1), 200, selectCursor, 0.5f, 0.5f, 0.0f, WHITE);
 				}
-
-				// ステージ名
-				Novice::ScreenPrintf(10 + 120 * i, 100, "STAGE%d", i);
 			}
+
 
 			///
 			/// ↑描画処理ここまで
@@ -623,6 +675,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 			{
 				player.isMoving = false;
 			}
+
 
 			if (player.canMove)
 			{
@@ -1407,7 +1460,9 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 			/*---アイテムの更新処理---*/
 			if (currentStage[static_cast<int>(player.pos.y / kBlockSize)][static_cast<int>(player.pos.x / kBlockSize)] == ITEM)
 			{
+				currentStage[static_cast<int>(player.pos.y / kBlockSize)][static_cast<int>(player.pos.x / kBlockSize)] = FLOOR;
 				player.isItemGet = true;
+
 			}
 
 			/*---ゴールの更新処理---*/
@@ -1415,6 +1470,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 			{
 				if (currentStage[static_cast<int>(robot.pos.y / kBlockSize)][static_cast<int>(robot.pos.x / kBlockSize)] == GOOL)
 				{
+					isTimerStart = false;
 					scene = CLEAR;
 				}
 			}
@@ -1440,7 +1496,6 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 				player.canMove = false;
 				robot.pos.x += 0.5f;
 			}
-
 
 			//===========================
 			// 制限時間タイマー
@@ -1584,25 +1639,25 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 					if (currentStage[y][x] == DASH_UP)
 					{
 						Novice::DrawSprite(static_cast<int>(kBlockSize) * x, static_cast<int>(kBlockSize) * y,
-							DashPanelHandle, 1.0f, 1.0f, 0.0f, WHITE);
+							DashPanelHandle[0], 1.0f, 1.0f, 0.0f, WHITE);
 					}
 
 					if (currentStage[y][x] == DASH_DOWN)
 					{
 						Novice::DrawSprite(static_cast<int>(kBlockSize) * x, static_cast<int>(kBlockSize) * y,
-							DashPanelHandle, 1.0f, 1.0f, 0.0f, WHITE);
+							DashPanelHandle[1], 1.0f, 1.0f, 0.0f, WHITE);
 					}
 
 					if (currentStage[y][x] == DASH_LEFT)
 					{
 						Novice::DrawSprite(static_cast<int>(kBlockSize) * x, static_cast<int>(kBlockSize) * y,
-							DashPanelHandle, 1.0f, 1.0f, 0.0f, WHITE);
+							DashPanelHandle[2], 1.0f, 1.0f, 0.0f, WHITE);
 					}
 
 					if (currentStage[y][x] == DASH_RIGHT)
 					{
 						Novice::DrawSprite(static_cast<int>(kBlockSize) * x, static_cast<int>(kBlockSize) * y,
-							DashPanelHandle, 1.0f, 1.0f, 0.0f, WHITE);
+							DashPanelHandle[3], 1.0f, 1.0f, 0.0f, WHITE);
 					}
 				}
 			}
@@ -1617,38 +1672,38 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 				{
 					if (player.direction == FRONT)
 					{
-						Novice::DrawSprite(static_cast<int>(player.pos.x), static_cast<int>(player.pos.y), playerHandle[2], 0.5f, 0.5f, 0.0f, WHITE);
+						Novice::DrawSprite(static_cast<int>(player.pos.x), static_cast<int>(player.pos.y), playerHandle[2], 1.0f, 1.0f, 0.0f, WHITE);
 					}
 					else if (player.direction == BACK)
 					{
-						Novice::DrawSprite(static_cast<int>(player.pos.x), static_cast<int>(player.pos.y), playerHandle[0], 0.5f, 0.5f, 0.0f, WHITE);
+						Novice::DrawSprite(static_cast<int>(player.pos.x), static_cast<int>(player.pos.y), playerHandle[0], 1.0f, 1.0f, 0.0f, WHITE);
 					}
 					else if (player.direction == LEFT)
 					{
-						Novice::DrawSprite(static_cast<int>(player.pos.x), static_cast<int>(player.pos.y), playerHandle[1], 0.5f, 0.5f, 0.0f, WHITE);
+						Novice::DrawSprite(static_cast<int>(player.pos.x), static_cast<int>(player.pos.y), playerHandle[1], 1.0f, 1.0f, 0.0f, WHITE);
 					}
 					else if (player.direction == RIGHT)
 					{
-						Novice::DrawSprite(static_cast<int>(player.pos.x), static_cast<int>(player.pos.y), playerHandle[3], 0.5f, 0.5f, 0.0f, WHITE);
+						Novice::DrawSprite(static_cast<int>(player.pos.x), static_cast<int>(player.pos.y), playerHandle[3], 1.0f, 1.0f, 0.0f, WHITE);
 					}
 				}
 				else
 				{
 					if (player.direction == FRONT)
 					{
-						Novice::DrawSprite(static_cast<int>(player.pos.x), static_cast<int>(player.pos.y), playerGradHandle[1], 0.5f, 0.5f, 0.0f, WHITE);
+						Novice::DrawSprite(static_cast<int>(player.pos.x), static_cast<int>(player.pos.y), playerGradHandle[1], 1.0f, 1.0f, 0.0f, WHITE);
 					}
 					else if (player.direction == BACK)
 					{
-						Novice::DrawSprite(static_cast<int>(player.pos.x), static_cast<int>(player.pos.y), playerGradHandle[0], 0.5f, 0.5f, 0.0f, WHITE);
+						Novice::DrawSprite(static_cast<int>(player.pos.x), static_cast<int>(player.pos.y), playerGradHandle[0], 1.0f, 1.0f, 0.0f, WHITE);
 					}
 					else if (player.direction == LEFT)
 					{
-						Novice::DrawSprite(static_cast<int>(player.pos.x), static_cast<int>(player.pos.y), playerGradHandle[2], 0.5f, 0.5f, 0.0f, WHITE);
+						Novice::DrawSprite(static_cast<int>(player.pos.x), static_cast<int>(player.pos.y), playerGradHandle[2], 1.0f, 1.0f, 0.0f, WHITE);
 					}
 					else if (player.direction == RIGHT)
 					{
-						Novice::DrawSprite(static_cast<int>(player.pos.x), static_cast<int>(player.pos.y), playerGradHandle[3], 0.5f, 0.5f, 0.0f, WHITE);
+						Novice::DrawSprite(static_cast<int>(player.pos.x), static_cast<int>(player.pos.y), playerGradHandle[3], 1.0f, 1.0f, 0.0f, WHITE);
 					}
 				}
 			}
@@ -1658,38 +1713,38 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 				{
 					if (player.direction == FRONT)
 					{
-						Novice::DrawSprite(static_cast<int>(player.pos.x), static_cast<int>(player.pos.y), playerHandle[2], 0.5f, 0.5f, 0.0f, WHITE);
+						Novice::DrawSprite(static_cast<int>(player.pos.x), static_cast<int>(player.pos.y), playerHandle[2], 1.0f, 1.0f, 0.0f, WHITE);
 					}
 					else if (player.direction == BACK)
 					{
-						Novice::DrawSprite(static_cast<int>(player.pos.x), static_cast<int>(player.pos.y), playerHandle[0], 0.5f, 0.5f, 0.0f, WHITE);
+						Novice::DrawSprite(static_cast<int>(player.pos.x), static_cast<int>(player.pos.y), playerHandle[0], 1.0f, 1.0f, 0.0f, WHITE);
 					}
 					else if (player.direction == LEFT)
 					{
-						Novice::DrawSprite(static_cast<int>(player.pos.x), static_cast<int>(player.pos.y), playerHandle[1], 0.5f, 0.5f, 0.0f, WHITE);
+						Novice::DrawSprite(static_cast<int>(player.pos.x), static_cast<int>(player.pos.y), playerHandle[1], 1.0f, 1.0f, 0.0f, WHITE);
 					}
 					else if (player.direction == RIGHT)
 					{
-						Novice::DrawSprite(static_cast<int>(player.pos.x), static_cast<int>(player.pos.y), playerHandle[3], 0.5f, 0.5f, 0.0f, WHITE);
+						Novice::DrawSprite(static_cast<int>(player.pos.x), static_cast<int>(player.pos.y), playerHandle[3], 1.0f, 1.0f, 0.0f, WHITE);
 					}
 				}
 				else
 				{
 					if (player.direction == FRONT)
 					{
-						Novice::DrawSprite(static_cast<int>(player.pos.x), static_cast<int>(player.pos.y), playerGradHandle[1], 0.5f, 0.5f, 0.0f, WHITE);
+						Novice::DrawSprite(static_cast<int>(player.pos.x), static_cast<int>(player.pos.y), playerGradHandle[1], 1.0f, 1.0f, 0.0f, WHITE);
 					}
 					else if (player.direction == BACK)
 					{
-						Novice::DrawSprite(static_cast<int>(player.pos.x), static_cast<int>(player.pos.y), playerGradHandle[0], 0.5f, 0.5f, 0.0f, WHITE);
+						Novice::DrawSprite(static_cast<int>(player.pos.x), static_cast<int>(player.pos.y), playerGradHandle[0], 1.0f, 1.0f, 0.0f, WHITE);
 					}
 					else if (player.direction == LEFT)
 					{
-						Novice::DrawSprite(static_cast<int>(player.pos.x), static_cast<int>(player.pos.y), playerGradHandle[2], 0.5f, 0.5f, 0.0f, WHITE);
+						Novice::DrawSprite(static_cast<int>(player.pos.x), static_cast<int>(player.pos.y), playerGradHandle[2], 1.0f, 1.0f, 0.0f, WHITE);
 					}
 					else if (player.direction == RIGHT)
 					{
-						Novice::DrawSprite(static_cast<int>(player.pos.x), static_cast<int>(player.pos.y), playerGradHandle[3], 0.5f, 0.5f, 0.0f, WHITE);
+						Novice::DrawSprite(static_cast<int>(player.pos.x), static_cast<int>(player.pos.y), playerGradHandle[3], 1.0f, 1.0f, 0.0f, WHITE);
 					}
 				}
 			}
@@ -1703,50 +1758,64 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 			{
 				if (player.direction == FRONT)
 				{
-					Novice::DrawSprite(static_cast<int>(robot.pos.x), static_cast<int>(robot.pos.y), robotHandle[2], 0.5f, 0.5f, 0.0f, WHITE);
+					Novice::DrawSprite(static_cast<int>(robot.pos.x), static_cast<int>(robot.pos.y), robotHandle[2], 1.0f, 1.0f, 0.0f, WHITE);
 				}
 				else if (player.direction == BACK)
 				{
-					Novice::DrawSprite(static_cast<int>(robot.pos.x), static_cast<int>(robot.pos.y), robotHandle[0], 0.5f, 0.5f, 0.0f, WHITE);
+					Novice::DrawSprite(static_cast<int>(robot.pos.x), static_cast<int>(robot.pos.y), robotHandle[0], 1.0f, 1.0f, 0.0f, WHITE);
 				}
 				else if (player.direction == LEFT)
 				{
-					Novice::DrawSprite(static_cast<int>(robot.pos.x), static_cast<int>(robot.pos.y), robotHandle[1], 0.5f, 0.5f, 0.0f, WHITE);
+					Novice::DrawSprite(static_cast<int>(robot.pos.x), static_cast<int>(robot.pos.y), robotHandle[1], 1.0f, 1.0f, 0.0f, WHITE);
 				}
 				else if (player.direction == RIGHT)
 				{
-					Novice::DrawSprite(static_cast<int>(robot.pos.x), static_cast<int>(robot.pos.y), robotHandle[3], 0.5f, 0.5f, 0.0f, WHITE);
+					Novice::DrawSprite(static_cast<int>(robot.pos.x), static_cast<int>(robot.pos.y), robotHandle[3], 1.0f, 1.0f, 0.0f, WHITE);
 				}
 			}
 			else
 			{
 				if (player.direction == FRONT)
 				{
-					Novice::DrawSprite(static_cast<int>(robot.pos.x), static_cast<int>(robot.pos.y), robotHoldItemHandle[2], 0.5f, 0.5f, 0.0f, WHITE);
+					Novice::DrawSprite(static_cast<int>(robot.pos.x), static_cast<int>(robot.pos.y), robotHoldItemHandle[2], 1.0f, 1.0f, 0.0f, WHITE);
 				}
 				else if (player.direction == BACK)
 				{
-					Novice::DrawSprite(static_cast<int>(robot.pos.x), static_cast<int>(robot.pos.y), robotHoldItemHandle[0], 0.5f, 0.5f, 0.0f, WHITE);
+					Novice::DrawSprite(static_cast<int>(robot.pos.x), static_cast<int>(robot.pos.y), robotHoldItemHandle[0], 1.0f, 1.0f, 0.0f, WHITE);
 				}
 				else if (player.direction == LEFT)
 				{
-					Novice::DrawSprite(static_cast<int>(robot.pos.x), static_cast<int>(robot.pos.y), robotHoldItemHandle[1], 0.5f, 0.5f, 0.0f, WHITE);
+					Novice::DrawSprite(static_cast<int>(robot.pos.x), static_cast<int>(robot.pos.y), robotHoldItemHandle[1], 1.0f, 1.0f, 0.0f, WHITE);
 				}
 				else if (player.direction == RIGHT)
 				{
-					Novice::DrawSprite(static_cast<int>(robot.pos.x), static_cast<int>(robot.pos.y), robotHoldItemHandle[3], 0.5f, 0.5f, 0.0f, WHITE);
+					Novice::DrawSprite(static_cast<int>(robot.pos.x), static_cast<int>(robot.pos.y), robotHoldItemHandle[3], 1.0f, 1.0f, 0.0f, WHITE);
 				}
 			}
 
 			//=======================
 			//制限時間の描画処理
 			//=======================
+			//背景
+			Novice::DrawSprite(10, 60, timerBackGraundHandle, 0.7f, 0.6f, 0.0f, WHITE);
 
-
+			//時間
 			for (int i = 0; i < 3; i++)
 			{
-				Novice::DrawSprite(10 + 40 * i, 10, numberHandle[numberArrayTimerSeconds[i]], 0.5f, 0.5f, 0.0f, WHITE);
+				Novice::DrawSprite(10 + 40 * i, 100, numberHandle[numberArrayTimerSeconds[i]], 0.4f, 0.4f, 0.0f, WHITE);
 			}
+
+			//残り
+			Novice::DrawSprite(20, 65, rimitHandle, 0.5f, 0.5f, 0.0f, WHITE);
+			//秒
+			Novice::DrawSprite(140, 110, secondsHandle, 0.5f, 0.5f, 0.0f, WHITE);
+
+			//=======================
+			//操作説明の描画処理
+			//=======================
+			Novice::DrawSprite(192, 512, explanationHandle[0], 1.0f, 1.0f, 0.0f, WHITE);
+			Novice::DrawSprite(350, 512, explanationHandle[1], 1.0f, 1.0f, 0.0f, WHITE);
+
 
 			///
 			/// ↑描画処理ここまで
@@ -1836,6 +1905,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 			/// ↓描画処理ここから
 			///
 
+			Novice::DrawSprite(0, 0, gameOverHandle, 1.0f, 1.0f, 0.0f, WHITE);
+			Novice::DrawSprite(100, 300, serectBotanHandle, 1.0f, 1.0f, 0.0f, WHITE);
 
 #pragma endregion
 			break;
@@ -1849,24 +1920,21 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 			//========================
 			//選択の更新処理
 			//========================
-			if (keys[DIK_A] && !preKeys[DIK_A])
-			{
 
-			}
-			else if (keys[DIK_D] && !preKeys[DIK_D])
-			{
-
-			}
 
 			if (keys[DIK_SPACE] && !preKeys[DIK_SPACE])
 			{
 
+				limitTimer = 180;
 				scene = STAGE_SELECT;
 			}
 
 			///
 			/// ↓描画処理ここから
 			///
+
+			Novice::DrawSprite(0, 0, stageClearHandle, 1.0f, 1.0f, 0.0f, WHITE);
+			Novice::DrawSprite(100, 300, serectBotanHandle, 1.0f, 1.0f, 0.0f, WHITE);
 
 #pragma endregion
 			break;
