@@ -230,7 +230,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 		{ 10,10,10, 0, 6, 2, 2, 2, 1, 0,10,10, },
 		{ 10,10,10, 0, 4, 7, 2, 2, 1, 0,10,10, },
 		{ 10,10,10, 0, 5, 2, 2, 3, 3, 0,10,10, },
-		{ 10,10,10, 0, 1, 1, 9, 3, 9, 0,10,10, },
+		{ 10,10,10, 0, 1, 1, 2, 3, 9, 0,10,10, },
 		{ 10,10,10, 0, 0, 0, 0, 0, 0, 0,10,10, },
 		{ 10,10,10,10,10,10,10,10,10,10,10,10, },
 		{ 10,10,10,10,10,10,10,10,10,10,10,10, },
@@ -271,7 +271,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 	{
 		{ 10,10,10,10,10,10,10,10,10,10,10,10, },
 		{ 10,10,10, 0, 0, 0, 0, 0, 0, 0,10,10, },
-		{ 10,10,10, 0, 1, 7, 1, 1, 1, 0,10,10, },
+		{ 10,10,10, 0, 1, 1, 1, 1, 1, 0,10,10, },
 		{ 10,10,10, 0, 1, 2, 2, 2, 6, 0,10,10, },
 		{ 10,10,10, 0, 3, 3, 3, 8, 4, 0,10,10, },
 		{ 10,10,10, 0, 2, 2, 3, 2, 2, 0,10,10, },
@@ -296,36 +296,6 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 		{ 10,10,10,10,10,10,10,10,10,10,10,10, },
 	};
 
-	//ステージ10
-	const int stage10[kMapSizeY][kMapSizeX] =
-	{
-		{ 10,10,10,10,10,10,10,10,10,10,10,10, },
-		{ 10,10, 0, 0, 0, 0, 0, 0, 0, 0,10,10, },
-		{ 10,10, 0, 2, 2, 2, 2, 2, 2, 0,10,10, },
-		{ 10,10, 0, 2, 2, 2, 2, 2, 2, 0,10,10, },
-		{ 10,10, 0, 2, 2, 2, 2, 2, 2, 0,10,10, },
-		{ 10,10, 0, 2, 2, 2, 2, 2, 2, 0,10,10, },
-		{ 10,10, 0, 2, 2, 2, 2, 2, 2, 0,10,10, },
-		{ 10,10, 0, 2, 2, 2, 2, 2, 2, 0,10,10, },
-		{ 10,10, 0, 0, 0, 0, 0, 0, 0, 0,10,10, },
-		{ 10,10,10,10,10,10,10,10,10,10,10,10, },
-	};
-
-	//ステージ11
-	const int stage11[kMapSizeY][kMapSizeX] =
-	{
-		{ 10,10,10,10,10,10,10,10,10,10,10,10, },
-		{ 10,10, 0, 0, 0, 0, 0, 0, 0, 0,10,10, },
-		{ 10,10, 0, 1, 9, 1, 1, 1, 1, 0,10,10, },
-		{ 10,10, 0, 1, 3, 3, 2, 2, 1, 0,10,10, },
-		{ 10,10, 0, 1, 2, 2, 2, 2, 1, 0,10,10, },
-		{ 10,10, 0, 1, 2, 3, 3, 2, 1, 0,10,10, },
-		{ 10,10, 0, 6, 2, 3, 9, 3, 1, 0,10,10, },
-		{ 10,10, 0, 4, 7, 2, 1, 2, 1, 0,10,10, },
-		{ 10,10, 0, 0, 0, 0, 0, 0, 0, 0,10,10, },
-		{ 10,10,10,10,10,10,10,10,10,10,10,10, },
-	};
-
 	/* 0 = ステージの壁(STAGE_WALL)
 	   1 = マップの壁 (WALL)
 	   2 = マップの床 (FLOOR)
@@ -336,7 +306,37 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 	   7 = ダッシュパネル左 (DASH_LEFT)
 	   8 = ダッシュパネル右 (DASH_RIGHT)
 	   9 = アイテム (ITEM)
-	   10 = 空白 (AIR)*/
+	  10 = 空白 (AIR)*/
+
+	  //ステージ10
+	const int stage10[kMapSizeY][kMapSizeX] =
+	{
+		{ 10,10,10,10,10,10,10,10,10,10,10,10, },
+		{ 10,10,10, 0, 0, 0, 0, 0, 0, 0, 0,10, },
+		{ 10,10,10, 0, 1, 1, 1, 1, 1, 1, 0,10, },
+		{ 10,10,10, 0, 1, 3, 2, 2, 9, 1, 0,10, },
+		{ 10,10,10, 0, 1, 2, 1, 3, 3, 1, 0,10, },
+		{ 10,10,10, 0, 2, 2, 2, 2, 2, 1, 0,10, },
+		{ 10,10,10, 0, 2, 3, 2, 2, 2, 1, 0,10, },
+		{ 10,10,10, 0, 1, 1, 8, 4, 7, 1, 0,10, },
+		{ 10,10,10, 0, 0, 0, 0, 0, 0, 0, 0,10, },
+		{ 10,10,10,10,10,10,10,10,10,10,10,10, },
+	};
+
+	//ステージ11
+	const int stage11[kMapSizeY][kMapSizeX] =
+	{
+		{ 10,10,10,10,10,10,10,10,10,10,10,10, },
+		{ 10,10,10, 0, 0, 0, 0, 0, 0, 0, 0,10, },
+		{ 10,10,10, 0, 1, 9, 1, 1, 1, 1, 0,10, },
+		{ 10,10,10, 0, 1, 3, 3, 2, 2, 1, 0,10, },
+		{ 10,10,10, 0, 1, 2, 2, 2, 2, 1, 0,10, },
+		{ 10,10,10, 0, 1, 2, 3, 3, 2, 1, 0,10, },
+		{ 10,10,10, 0, 6, 2, 3, 9, 3, 1, 0,10, },
+		{ 10,10,10, 0, 4, 7, 2, 1, 2, 1, 0,10, },
+		{ 10,10,10, 0, 0, 0, 0, 0, 0, 0, 0,10, },
+		{ 10,10,10,10,10,10,10,10,10,10,10,10, },
+	};
 
 	int currentStage[kMapSizeY][kMapSizeX];
 
@@ -412,6 +412,21 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 	/*---クリア報酬---*/
 	int stars = 0;
 
+	//アニメーション
+	int dashAnimationCount = 0;
+	int dashFrameCount = 0;
+
+	//クリアアニメーション
+	float time = 0.01f;
+
+	float easedT = 1.0f - powf(1.0f - time, 3.0f);
+
+	float serectBotanPosY = (1.0f - easedT) * 400.0f + easedT * 320.0f;;
+	float stageClearPosY = (1.0f - easedT) * 10.0f + easedT * 120.0f;
+	float stageGameOverPosY = (1.0f - easedT) * 10.0f + easedT * 120.0f;
+
+	int frameCount = 0;
+
 	/*---画像の読み込み---*/
 	//プレイヤー
 	int playerHandle[4];
@@ -459,11 +474,30 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 	//マップチップ
 	int wallBlockHandle = Novice::LoadTexture("./Resources/images/blockWall.png");
 	int floorBlockHandle = Novice::LoadTexture("./Resources/images/floor.png");
-	int DashPanelHandle[4];
-	DashPanelHandle[0] = Novice::LoadTexture("./Resources/images/dashUp.png");
-	DashPanelHandle[1] = Novice::LoadTexture("./Resources/images/dashDown.png");
-	DashPanelHandle[2] = Novice::LoadTexture("./Resources/images/dashLeft.png");
-	DashPanelHandle[3] = Novice::LoadTexture("./Resources/images/dashRight.png");
+
+	int DashPanelUpHandle[4];
+	DashPanelUpHandle[0] = Novice::LoadTexture("./Resources/images/dashUp0.png");
+	DashPanelUpHandle[1] = Novice::LoadTexture("./Resources/images/dashUp1.png");
+	DashPanelUpHandle[2] = Novice::LoadTexture("./Resources/images/dashUp2.png");
+	DashPanelUpHandle[3] = Novice::LoadTexture("./Resources/images/dashUp3.png");
+
+	int DashPanelDownHandle[4];
+	DashPanelDownHandle[0] = Novice::LoadTexture("./Resources/images/dashDown0.png");
+	DashPanelDownHandle[1] = Novice::LoadTexture("./Resources/images/dashDown1.png");
+	DashPanelDownHandle[2] = Novice::LoadTexture("./Resources/images/dashDown2.png");
+	DashPanelDownHandle[3] = Novice::LoadTexture("./Resources/images/dashDown3.png");
+
+	int DashPanelLeftHandle[4];
+	DashPanelLeftHandle[0] = Novice::LoadTexture("./Resources/images/dashLeft0.png");
+	DashPanelLeftHandle[1] = Novice::LoadTexture("./Resources/images/dashLeft1.png");
+	DashPanelLeftHandle[2] = Novice::LoadTexture("./Resources/images/dashLeft2.png");
+	DashPanelLeftHandle[3] = Novice::LoadTexture("./Resources/images/dashLeft3.png");
+
+	int DashPanelRightHandle[4];
+	DashPanelRightHandle[0] = Novice::LoadTexture("./Resources/images/dashRight0.png");
+	DashPanelRightHandle[1] = Novice::LoadTexture("./Resources/images/dashRight1.png");
+	DashPanelRightHandle[2] = Novice::LoadTexture("./Resources/images/dashRight2.png");
+	DashPanelRightHandle[3] = Novice::LoadTexture("./Resources/images/dashRight3.png");
 
 	int goalHandle = Novice::LoadTexture("./Resources/images/goal.png");
 	int stageWallHandle = Novice::LoadTexture("./Resources/images/stageWall.png");
@@ -471,7 +505,13 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 	int ItemHandle = Novice::LoadTexture("./Resources/images/item.png");
 
 	//背景
-	int backgroundHandle = Novice::LoadTexture("./Resources/images/gameBackground.png");
+	int gameBackgroundHandle = Novice::LoadTexture("./Resources/images/gameBackground.png");
+	int clearBackgroundHandle = Novice::LoadTexture("./Resources/images/background.png");
+	int selectCursor[3];
+	selectCursor[0] = Novice::LoadTexture("./Resources/images/stageSelectCursor_1.png");
+	selectCursor[1] = Novice::LoadTexture("./Resources/images/stageSelectCursor_2.png");
+	selectCursor[2] = Novice::LoadTexture("./Resources/images/stageSelectCursor_3.png");
+	
 	//タイトル
 	int titleHandle = Novice::LoadTexture("./Resources/images/Title.png");
 	//ステージ選択
@@ -489,23 +529,29 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 	selectHandle[8] = Novice::LoadTexture("./Resources/images/selectStage8.png");
 	selectHandle[9] = Novice::LoadTexture("./Resources/images/selectStage9.png");
 	selectHandle[10] = Novice::LoadTexture("./Resources/images/selectStage10.png");
-	selectHandle[11] = Novice::LoadTexture("./Resources/images/selectStage10.png");
+	selectHandle[11] = Novice::LoadTexture("./Resources/images/selectStage11.png");
 
-
-	int selectCursor = Novice::LoadTexture("./Resources/images/stageSelectCursor.png");
 	//ゲームクリア
 	int stageClearHandle = Novice::LoadTexture("./Resources/images/stageClear.png");
 	//ゲームオーバー
 	int gameOverHandle = Novice::LoadTexture("./Resources/images/gameOver.png");
+	int gameOverBackgroundHandle = Novice::LoadTexture("./Resources/images/gameOverBGt.png");
 	//ボタン
 	int botanHandle = Novice::LoadTexture("./Resources/images/botan.png");
 	int serectBotanHandle = Novice::LoadTexture("./Resources/images/pressSpaceSerect.png");
 
 	//説明
-	int explanationHandle[2];
+	int explanationBackGraundHandle = Novice::Novice::LoadTexture("./Resources/images/explanationBackGraund.png");
+	int explanationHandle[5];
 	explanationHandle[0] = Novice::LoadTexture("./Resources/images/control_wasd.png");
 	explanationHandle[1] = Novice::LoadTexture("./Resources/images/control_space.png");
+	explanationHandle[2] = Novice::LoadTexture("./Resources/images/tutorial_txt.png");
+	explanationHandle[3] = Novice::LoadTexture("./Resources/images/tab.png");
+	explanationHandle[4] = Novice::LoadTexture("./Resources/images/reset.png");
 
+	int itemHandle[2];
+	itemHandle[0] = Novice::LoadTexture("./Resources/images/pickItem.png");
+	itemHandle[1] = Novice::LoadTexture("./Resources/images/pick_Item.png");
 	/*---BGM,SE---*/
 	//BGM
 	int playHandle[5] = { -1 };
@@ -523,8 +569,12 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 	soundHandle[2] = Novice::LoadAudio("./Resources/Sounds/player.mp3");//プレイヤー足音
 	soundHandle[3] = Novice::LoadAudio("./Resources/Sounds/robot.mp3");//ロボット足音
 	soundHandle[4] = Novice::LoadAudio("./Resources/Sounds/grabBlock.mp3");//掴む
-	soundHandle[5] = Novice::LoadAudio("./Resources/Sounds/itemget_se.mp3");
-	soundHandle[6] = Novice::LoadAudio("./Resources/Sounds/clear_se.mp3");
+	soundHandle[5] = Novice::LoadAudio("./Resources/Sounds/itemget_se.mp3");//アイテム
+	soundHandle[6] = Novice::LoadAudio("./Resources/Sounds/clear_se.mp3");//クリア
+	//
+	int useSoundHandle[2];
+	useSoundHandle[0] = Novice::LoadTexture("./Resources/images/useSound_char.png");
+	useSoundHandle[1] = Novice::LoadTexture("./Resources/images/useSound_char2.png");
 
 	// ウィンドウの×ボタンが押されるまでループ
 	while (Novice::ProcessMessage() == 0)
@@ -554,6 +604,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 			if (keys[DIK_SPACE] && !preKeys[DIK_SPACE])
 			{
 				scene = STAGE_SELECT;
+				//SE
+				Novice::PlayAudio(soundHandle[0], false, 0.2f);
 				Novice::StopAudio(playHandle[0]);
 				break;
 			}
@@ -580,6 +632,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 
 			Novice::DrawSprite(260, 400, botanHandle, 1.0f, 1.0f, 0.0f, WHITE);
 
+			Novice::DrawSprite(530, 600, useSoundHandle[0], 1.0f, 1.0f, 0.0f, WHITE);
+			Novice::DrawSprite(750, 600, useSoundHandle[1], 1.0f, 1.0f, 0.0f, WHITE);
 			///
 			/// ↑描画処理ここまで
 			///
@@ -602,7 +656,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 					nextStage--;
 				}
 				//SE
-				Novice::PlayAudio(soundHandle[1], false, 0.1f);
+				Novice::PlayAudio(soundHandle[1], false, 0.2f);
 			}
 			else if (keys[DIK_D] && !preKeys[DIK_D])
 			{
@@ -612,7 +666,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 				}
 
 				//SE
-				Novice::PlayAudio(soundHandle[1], false, 0.1f);
+				Novice::PlayAudio(soundHandle[1], false, 0.2f);
 			}
 
 			if (keys[DIK_SPACE] && !preKeys[DIK_SPACE])
@@ -706,17 +760,17 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 						{
 							currentStage[i][j] = stage10[i][j];
 							player.pos.x = 384.0f;
-							player.pos.y = 256.0f;
-							robot.pos.x = 256.0f;
+							player.pos.y = 320.0f;
+							robot.pos.x = 320.0f;
 							robot.pos.y = 256.0f;
 						}
 						else if (nextStage == 11)
 						{
 							currentStage[i][j] = stage11[i][j];
-							player.pos.x = 512.0f;
+							player.pos.x = 448.0f;
 							player.pos.y = 192.0f;
-							robot.pos.x = 576.0f;
-							robot.pos.y = 192.0f;
+							robot.pos.x = 512.0f;
+							robot.pos.y = 128.0f;
 						}
 					}
 				}
@@ -744,6 +798,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 				player.isItemGet = false;
 
 				scene = GAME;
+				//SE
+				Novice::PlayAudio(soundHandle[0], false, 0.2f);
 				Novice::StopAudio(playHandle[1]);
 				break;
 			}
@@ -753,6 +809,13 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 			if (!Novice::IsPlayingAudio(playHandle[1]) || playHandle[1] == -1)
 			{
 				playHandle[1] = Novice::PlayAudio(bgmHandle[1], false, 0.1f);
+			}
+
+			//フレームのカウント
+			frameCount++;
+			if (frameCount == 60)
+			{
+				frameCount = 0;
 			}
 
 			///
@@ -767,7 +830,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 			//文字の描画処理
 			//========================
 			Novice::DrawSprite(0, 0, stageSelectHandle, 1.0f, 1.0f, 0.0f, WHITE);
-			Novice::DrawSprite(280, 70, selectMojiHandle, 1.0f, 1.0f, 0.0f, WHITE);
+			Novice::DrawSprite(280, 20, selectMojiHandle, 1.0f, 1.0f, 0.0f, WHITE);
 
 			for (int i = 0; i <= kMaxStages; i++)
 			{
@@ -789,12 +852,12 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 					if (i <= 5)
 					{
 						// 印
-						Novice::DrawSprite(70 + 130 * i, 100, selectCursor, 0.4f, 0.4f, 0.0f, WHITE);
+						Novice::DrawSprite(70 + 130 * i, 100, selectCursor[frameCount / 20], 0.4f, 0.4f, 0.0f, WHITE);
 					}
 					else if (5 <= i || i >= 10)
 					{
 						// 印
-						Novice::DrawSprite(70 + 130 * (i - 6), 240, selectCursor, 0.4f, 0.4f, 0.0f, WHITE);
+						Novice::DrawSprite(70 + 130 * (i - 6), 240, selectCursor[frameCount / 20], 0.4f, 0.4f, 0.0f, WHITE);
 					}
 				}
 			}
@@ -887,7 +950,6 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 						}
 						//SE
 						Novice::PlayAudio(soundHandle[2], false, 0.2f);
-						Novice::PlayAudio(soundHandle[3], false, 0.1f);
 					}
 
 
@@ -949,7 +1011,6 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 						}
 						//SE
 						Novice::PlayAudio(soundHandle[2], false, 0.2f);
-						Novice::PlayAudio(soundHandle[3], false, 0.1f);
 					}
 
 					//下
@@ -1014,7 +1075,6 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 
 						//SE
 						Novice::PlayAudio(soundHandle[2], false, 0.2f);
-						Novice::PlayAudio(soundHandle[3], false, 0.1f);
 					}
 
 					//下
@@ -1076,7 +1136,6 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 						}
 						//SE
 						Novice::PlayAudio(soundHandle[2], false, 0.2f);
-						Novice::PlayAudio(soundHandle[3], false, 0.1f);
 					}
 					//ロボットが動くこと出来るかの判定
 					robot.canMove = true;
@@ -1266,7 +1325,6 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 							}
 							//SE
 							Novice::PlayAudio(soundHandle[2], false, 0.2f);
-							Novice::PlayAudio(soundHandle[3], false, 0.2f);
 						}
 
 						//下
@@ -1350,7 +1408,6 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 							}
 							//SE
 							Novice::PlayAudio(soundHandle[2], false, 0.2f);
-							Novice::PlayAudio(soundHandle[3], false, 0.2f);
 						}
 					}
 					else if (player.direction == LEFT || player.direction == RIGHT)
@@ -1436,7 +1493,6 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 							}
 							//SE
 							Novice::PlayAudio(soundHandle[2], false, 0.2f);
-							Novice::PlayAudio(soundHandle[3], false, 0.2f);
 						}
 
 						//右
@@ -1521,7 +1577,6 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 							}
 							//SE
 							Novice::PlayAudio(soundHandle[2], false, 0.2f);
-							Novice::PlayAudio(soundHandle[3], false, 0.2f);
 						}
 					}
 
@@ -1669,6 +1724,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 			if (keys[DIK_TAB] && !preKeys[DIK_TAB])
 			{
 				scene = STAGE_SELECT;
+				//SE
+				Novice::PlayAudio(soundHandle[0], false, 0.2f);
 				Novice::StopAudio(playHandle[2]);
 				break;
 			}
@@ -1676,7 +1733,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 			//==============================
 			//フレームタイマーのカウント
 			//==============================
-
+			//プレイヤー
 			player.frameCount++;
 
 			if (player.frameCount > 59)
@@ -1686,6 +1743,16 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 
 			player.animationCount = player.frameCount / 15;
 
+			//その他
+
+			dashFrameCount++;
+
+			if (dashFrameCount > 59)
+			{
+				dashFrameCount = 0;
+			}
+
+			dashAnimationCount = dashFrameCount / 15;
 
 			//==============================
 			//ステージギミックの更新処理
@@ -1720,6 +1787,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 					isTimerStart = false;
 					scene = CLEAR;
 					Novice::StopAudio(playHandle[2]);
+					Novice::PlayAudio(soundHandle[6], false, 0.4f);
 					break;
 				}
 			}
@@ -1785,6 +1853,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 			if (limitTimer <= 0)
 			{
 				scene = GAME_OVER;
+				Novice::StopAudio(playHandle[2]);
+				break;
 			}
 
 			//===========================
@@ -1821,7 +1891,6 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 				playHandle[2] = Novice::PlayAudio(bgmHandle[2], false, 0.1f);
 			}
 
-
 			///
 			/// ↑更新処理ここまで
 			///
@@ -1834,7 +1903,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 			//背景の描画処理
 			//=====================
 
-			Novice::DrawSprite(0, 0, backgroundHandle, 1, 1, 0.0f, WHITE);
+			Novice::DrawSprite(0, 0, gameBackgroundHandle, 1, 1, 0.0f, WHITE);
 
 			//=====================
 			//マップチップの描画処理
@@ -1900,25 +1969,25 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 					if (currentStage[y][x] == DASH_UP)
 					{
 						Novice::DrawSprite(static_cast<int>(kBlockSize) * x, static_cast<int>(kBlockSize) * y,
-							DashPanelHandle[0], 1.0f, 1.0f, 0.0f, WHITE);
+							DashPanelUpHandle[dashAnimationCount], 1.0f, 1.0f, 0.0f, WHITE);
 					}
 
 					if (currentStage[y][x] == DASH_DOWN)
 					{
 						Novice::DrawSprite(static_cast<int>(kBlockSize) * x, static_cast<int>(kBlockSize) * y,
-							DashPanelHandle[1], 1.0f, 1.0f, 0.0f, WHITE);
+							DashPanelDownHandle[dashAnimationCount], 1.0f, 1.0f, 0.0f, WHITE);
 					}
 
 					if (currentStage[y][x] == DASH_LEFT)
 					{
 						Novice::DrawSprite(static_cast<int>(kBlockSize) * x, static_cast<int>(kBlockSize) * y,
-							DashPanelHandle[2], 1.0f, 1.0f, 0.0f, WHITE);
+							DashPanelLeftHandle[dashAnimationCount], 1.0f, 1.0f, 0.0f, WHITE);
 					}
 
 					if (currentStage[y][x] == DASH_RIGHT)
 					{
 						Novice::DrawSprite(static_cast<int>(kBlockSize) * x, static_cast<int>(kBlockSize) * y,
-							DashPanelHandle[3], 1.0f, 1.0f, 0.0f, WHITE);
+							DashPanelRightHandle[dashAnimationCount], 1.0f, 1.0f, 0.0f, WHITE);
 					}
 				}
 			}
@@ -2074,9 +2143,21 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 			//=======================
 			//操作説明の描画処理
 			//=======================
-			Novice::DrawSprite(192, 512, explanationHandle[0], 1.0f, 1.0f, 0.0f, WHITE);
-			Novice::DrawSprite(350, 512, explanationHandle[1], 1.0f, 1.0f, 0.0f, WHITE);
 
+			Novice::DrawSprite(50, 300, itemHandle[0], 1.3f, 1.3f, 0.0f, WHITE);
+
+			if (player.isItemGet)
+			{
+				Novice::DrawSprite(50, 300, itemHandle[1], 1.3f, 1.3f, 0.0f, WHITE);
+			}
+
+			Novice::DrawSprite(660, 90, explanationBackGraundHandle, 1.0f, 1.0f, 0.0f, WHITE);
+
+			Novice::DrawSprite(100, 510, explanationHandle[0], 1.0f, 1.0f, 0.0f, WHITE);
+			Novice::DrawSprite(250, 510, explanationHandle[1], 1.0f, 1.0f, 0.0f, WHITE);
+			Novice::DrawSprite(530, 540, explanationHandle[2], 1.3f, 1.3f, 0.0f, WHITE);
+			Novice::DrawSprite(670, 100, explanationHandle[3], 1.3f, 1.3f, 0.0f, WHITE);
+			Novice::DrawSprite(670, 160, explanationHandle[4], 1.3f, 1.3f, 0.0f, WHITE);
 
 			///
 			/// ↑描画処理ここまで
@@ -2144,6 +2225,24 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 			///↓更新処理ここから
 			///
 
+		    //========================
+			//イージングの更新処理
+			//========================
+
+			time += 0.01f;
+			if (time >= 1.0f)
+			{
+				time = 1.0f;
+			}
+
+			easedT = 1.0f - powf(1.0f - time, 3.0f);
+
+			//SPACEを押す文
+			serectBotanPosY = (1.0f - easedT) * 400.0f + easedT * 320.0f;
+
+			//ステージクリアの文
+			stageGameOverPosY = (1.0f - easedT) * 10.0f + easedT * 120.0f;
+
 			//========================
 			//選択の更新処理
 			//========================
@@ -2165,8 +2264,10 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 			/// ↓描画処理ここから
 			///
 
-			Novice::DrawSprite(0, 0, gameOverHandle, 1.0f, 1.0f, 0.0f, WHITE);
-			Novice::DrawSprite(100, 300, serectBotanHandle, 1.0f, 1.0f, 0.0f, WHITE);
+			Novice::DrawSprite(0, 0, gameOverBackgroundHandle, 1.0f, 1.0f, 0.0f, WHITE);
+			Novice::DrawSprite(150, static_cast<int>(stageGameOverPosY), gameOverHandle, 1.0f, 1.0f, 0.0f, WHITE);
+			Novice::DrawSprite(100, static_cast<int>(serectBotanPosY), serectBotanHandle, 1.0f, 1.0f, 0.0f, WHITE);
+
 
 #pragma endregion
 			break;
@@ -2176,6 +2277,26 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 			///
 			///↓更新処理ここから
 			///
+			
+
+			//========================
+			//イージングの更新処理
+			//========================
+
+			time += 0.01f;
+			if (time >= 1.0f)
+			{
+				time = 1.0f;
+			}
+
+			easedT = 1.0f - powf(1.0f - time, 3.0f);
+
+			//SPACEを押す文
+			serectBotanPosY = (1.0f - easedT) * 400.0f + easedT * 320.0f;
+
+			//ステージクリアの文
+			stageClearPosY = (1.0f - easedT) * 10.0f + easedT * 120.0f;
+
 
 			//========================
 			//選択の更新処理
@@ -2185,22 +2306,15 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 			{
 				limitTimer = 180;
 				scene = STAGE_SELECT;
-				Novice::StopAudio(playHandle[3]);
-				break;
 			}
 
-			/*---BGN再生---*/
-			if (!Novice::IsPlayingAudio(playHandle[3]) || playHandle[3] == -1)
-			{
-				playHandle[3] = Novice::PlayAudio(bgmHandle[3], false, 0.1f);
-			}
-			
 			///
 			/// ↓描画処理ここから
 			///
 
-			Novice::DrawSprite(0, 0, stageClearHandle, 1.0f, 1.0f, 0.0f, WHITE);
-			Novice::DrawSprite(100, 300, serectBotanHandle, 1.0f, 1.0f, 0.0f, WHITE);
+			Novice::DrawSprite(0, 0, clearBackgroundHandle, 1.0f, 1.0f, 0.0f, WHITE);
+			Novice::DrawSprite(150, static_cast<int>(stageClearPosY), stageClearHandle, 1.0f, 1.0f, 0.0f, WHITE);
+			Novice::DrawSprite(110, static_cast<int>(serectBotanPosY), serectBotanHandle, 1.0f, 1.0f, 0.0f, WHITE);
 
 #pragma endregion
 			break;
