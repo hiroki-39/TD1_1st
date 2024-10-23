@@ -94,7 +94,7 @@ const float kWindowHeight = 640.0f;
 //640
 
 // ステージ数
-const int kMaxStages = 5;
+const int kMaxStages = 11;
 
 const char kWindowTitle[] = "LC1B_カトウ_ダイドウ_モリ_はたらくハコビヤ";
 
@@ -221,16 +221,16 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 	   9 = アイテム (ITEM)
 	   10 = 空白 (AIR)*/
 
-	   //ステージ6
+	//ステージ6
 	const int stage6[kMapSizeY][kMapSizeX] =
 	{
 		{ 10,10,10,10,10,10,10,10,10,10,10,10, },
 		{ 10,10,10, 0, 0, 0, 0, 0, 0, 0,10,10, },
-		{ 10,10,10, 0, 4, 7, 1, 2, 9, 0,10,10, },
-		{ 10,10,10, 0, 5, 2, 2, 3, 2, 0,10,10, },
-		{ 10,10,10, 0, 2, 2, 2, 2, 3, 0,10,10, },
-		{ 10,10,10, 0, 2, 2, 3, 2, 2, 0,10,10, },
-		{ 10,10,10, 0, 1, 1, 9, 3, 1, 0,10,10, },
+		{ 10,10,10, 0, 1, 9, 8, 4, 7, 0,10,10, },
+		{ 10,10,10, 0, 1, 3, 2, 3, 1, 0,10,10, },
+		{ 10,10,10, 0, 2, 2, 2, 2, 1, 0,10,10, },
+		{ 10,10,10, 0, 2, 2, 3, 3, 9, 0,10,10, },
+		{ 10,10,10, 0, 2, 3, 1, 2, 2, 0,10,10, },
 		{ 10,10,10, 0, 0, 0, 0, 0, 0, 0,10,10, },
 		{ 10,10,10,10,10,10,10,10,10,10,10,10, },
 		{ 10,10,10,10,10,10,10,10,10,10,10,10, },
@@ -435,12 +435,19 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 	//ステージ選択
 	int stageSelectHandle = Novice::LoadTexture("./Resources/images/stageSelectBackGraund.png");
 	int selectMojiHandle = Novice::LoadTexture("./Resources/images/stageSelect_char.png");
-	int selectHandle[5];
-	selectHandle[0] = Novice::LoadTexture("./Resources/images/selectStage1.png");
-	selectHandle[1] = Novice::LoadTexture("./Resources/images/selectStage2.png");
-	selectHandle[2] = Novice::LoadTexture("./Resources/images/selectStage3.png");
-	selectHandle[3] = Novice::LoadTexture("./Resources/images/selectStage4.png");
-	selectHandle[4] = Novice::LoadTexture("./Resources/images/selectStage5.png");
+	int selectHandle[11];
+	selectHandle[0] = Novice::LoadTexture("./Resources/images/selectStage0.png");
+	selectHandle[1] = Novice::LoadTexture("./Resources/images/selectStage1.png");
+	selectHandle[2] = Novice::LoadTexture("./Resources/images/selectStage2.png");
+	selectHandle[3] = Novice::LoadTexture("./Resources/images/selectStage3.png");
+	selectHandle[4] = Novice::LoadTexture("./Resources/images/selectStage4.png");
+	selectHandle[5] = Novice::LoadTexture("./Resources/images/selectStage5.png");
+	selectHandle[6] = Novice::LoadTexture("./Resources/images/selectStage6.png");
+	selectHandle[7] = Novice::LoadTexture("./Resources/images/selectStage7.png");
+	selectHandle[8] = Novice::LoadTexture("./Resources/images/selectStage8.png");
+	selectHandle[9] = Novice::LoadTexture("./Resources/images/selectStage9.png");
+	selectHandle[10] = Novice::LoadTexture("./Resources/images/selectStage10.png");
+
 
 	int selectCursor = Novice::LoadTexture("./Resources/images/stageSelectCursor.png");
 	//ゲームクリア
@@ -458,8 +465,21 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 
 	/*---BGM,SE---*/
 	//BGM
+	int playHandle[5] = { -1 };
 
+	int bgmHandle[5];
+	bgmHandle[0] = Novice::LoadAudio("./Resources/Sounds/maou_bgm_cyber13.mp3");//title
+	bgmHandle[1] = Novice::LoadAudio("./Resources/Sounds/maou_bgm_cyber07.mp3");//stageselect
+	bgmHandle[2] = Novice::LoadAudio("./Resources/Sounds/maou_bgm_acoustic35.mp3");//gamePlay
+	//bgmHandle[3] = Novice::LoadAudio("./Resources/Sounds/maou_game_jingle03.mp3");//clear
+	//bgmHandle[4] = Novice::LoadAudio("./Resources/Sounds/maou_game_jingle08.mp3");//gameover
 	//SE
+	int soundHandle[5];
+	//soundHandle[0] = Novice::LoadAudio("./Resources/Sounds/maou_se_system43.mp3");//決定
+	soundHandle[1] = Novice::LoadAudio("./Resources/Sounds/maou_se_sound_paper01.mp3");//選択カーソルの移動時
+	soundHandle[2] = Novice::LoadAudio("./Resources/Sounds/maou_se_sound_footstep02.mp3");//プレイヤー足音
+	soundHandle[3] = Novice::LoadAudio("./Resources/Sounds/maou_se_sound_machine09.mp3");//ロボット足音
+	soundHandle[4] = Novice::LoadAudio("./Resources/Sounds/maou_se_battle14.mp3");//掴む
 
 	// ウィンドウの×ボタンが押されるまでループ
 	while (Novice::ProcessMessage() == 0)
@@ -528,6 +548,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 				{
 					nextStage--;
 				}
+				//SE
+				Novice::PlayAudio(soundHandle[1], false, 0.7f);
 			}
 			else if (keys[DIK_D] && !preKeys[DIK_D])
 			{
@@ -535,6 +557,9 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 				{
 					nextStage++;
 				}
+
+				//SE
+				Novice::PlayAudio(soundHandle[1], false, 0.7f);
 			}
 
 			if (keys[DIK_SPACE] && !preKeys[DIK_SPACE])
@@ -558,7 +583,6 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 							player.pos.y = 256.0f;
 							robot.pos.x = 448.0f;
 							robot.pos.y = 128.0f;
-
 						}
 						else if (nextStage == 3)
 						{
@@ -624,6 +648,9 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 
 				robot.centerPos.x = robot.pos.x + robot.width / 2.0f;
 				robot.centerPos.y = robot.pos.y + robot.height / 2.0f;
+				//フラグの初期化
+				player.canMove = true;
+				player.isItemGet = false;
 
 				scene = GAME;
 			}
@@ -645,15 +672,35 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 			for (int i = 1; i <= kMaxStages; i++)
 			{
 				// ステージ名
-				Novice::DrawSprite(70 + 160 * (i - 1), 200, selectHandle[i - 1], 0.5f, 0.5f, 0.0f, WHITE);
+				if (i <= 6)
+				{
+					// 印
+					Novice::DrawSprite(70 + 130 * (i - 1), 100, selectHandle[i - 1], 0.4f, 0.4f, 0.0f, WHITE);
+				}
+				else if (6 <= i || i >= 10)
+				{
+					// 印
+					Novice::DrawSprite(70 + 130 * (i - 7), 240, selectHandle[i - 1], 0.4f, 0.4f, 0.0f, WHITE);
+				}
+
 
 				if (nextStage == i)
 				{
-					// 印
-					Novice::DrawSprite(70 + 160 * (i - 1), 200, selectCursor, 0.5f, 0.5f, 0.0f, WHITE);
-				}
-			}
+					if (i <= 6)
+					{
+						// 印
+						Novice::DrawSprite(70 + 130 * (i - 1), 100, selectCursor, 0.4f, 0.4f, 0.0f, WHITE);
+					}
+					else if (6 <= i || i >= 12)
+					{
+						// 印
+						Novice::DrawSprite(70 + 130 * (i - 7), 240, selectCursor, 0.4f, 0.4f, 0.0f, WHITE);
+					}
 
+				}
+
+
+			}
 
 			///
 			/// ↑描画処理ここまで
@@ -675,7 +722,6 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 			{
 				player.isMoving = false;
 			}
-
 
 			if (player.canMove)
 			{
@@ -741,6 +787,9 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 							robot.pos.y += robot.speed;
 							robot.centerPos.y += robot.speed;
 						}
+
+						//SE
+						Novice::PlayAudio(soundHandle[2], false, 0.7f);
 					}
 
 
@@ -800,6 +849,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 							robot.pos.x += robot.speed;
 							robot.centerPos.x += robot.speed;
 						}
+						//SE
+						Novice::PlayAudio(soundHandle[2], false, 0.7f);
 					}
 
 					//下
@@ -861,6 +912,9 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 							robot.centerPos.y -= robot.speed;
 
 						}
+
+						//SE
+						Novice::PlayAudio(soundHandle[2], false, 0.7f);
 					}
 
 					//下
@@ -920,11 +974,12 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 							robot.pos.x -= robot.speed;
 							robot.centerPos.x -= robot.speed;
 						}
-					}
 
+						//SE
+						Novice::PlayAudio(soundHandle[2], false, 0.7f);
+					}
 					//ロボットが動くこと出来るかの判定
 					robot.canMove = true;
-
 				}
 
 				//足場ブロックがプレイヤーが向いてる方向にあるからどうかの判定とロボットが足場ブロックの上にいないかの判定
@@ -1003,6 +1058,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 					if (keys[DIK_SPACE])
 					{
 						player.grabBlock = true;
+						//SE
+						Novice::PlayAudio(soundHandle[4], false, 0.7f);
 					}
 					else
 					{
@@ -1065,6 +1122,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 
 									player.canMoveBlock = false;
 								}
+
 							}
 							else if (player.isFrontReady)
 							{
@@ -1108,6 +1166,9 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 								robot.pos.y += robot.speed;
 								robot.centerPos.y += robot.speed;
 							}
+
+							//SE
+							Novice::PlayAudio(soundHandle[2], false, 0.7f);
 						}
 
 						//下
@@ -1189,6 +1250,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 								robot.pos.y -= robot.speed;
 								robot.centerPos.y -= robot.speed;
 							}
+							//SE
+							Novice::PlayAudio(soundHandle[2], false, 0.7f);
 						}
 					}
 					else if (player.direction == LEFT || player.direction == RIGHT)
@@ -1272,6 +1335,9 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 								robot.pos.x += robot.speed;
 								robot.centerPos.x += robot.speed;
 							}
+
+							//SE
+							Novice::PlayAudio(soundHandle[2], false, 0.7f);
 						}
 
 						//右
@@ -1354,6 +1420,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 								robot.centerPos.x -= robot.speed;
 
 							}
+							//SE
+							Novice::PlayAudio(soundHandle[2], false, 0.7f);
 						}
 					}
 
@@ -1439,6 +1507,70 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 				}
 			}
 
+			/*---リスタート---*/
+			if (keys[DIK_R] && !preKeys[DIK_R])
+			{
+				if (stage1)
+				{
+					player.pos.x = 256.0f;
+					player.pos.y = 192.0f;
+					robot.pos.x = 256.0f;
+					robot.pos.y = 128.0f;
+				}
+				else if (stage2)
+				{
+					player.pos.x = 384.0f;
+					player.pos.y = 256.0f;
+					robot.pos.x = 448.0f;
+					robot.pos.y = 128.0f;
+				}
+				else if (stage3)
+				{
+					player.pos.x = 384.0f;
+					player.pos.y = 256.0f;
+					robot.pos.x = 512.0f;
+					robot.pos.y = 192.0f;
+				}
+				else if (stage4)
+				{
+					player.pos.x = 448.0f;
+					player.pos.y = 256.0f;
+					robot.pos.x = 320.0f;
+					robot.pos.y = 384.0f;
+				}
+				else if (stage5)
+				{
+					player.pos.x = 448.0f;
+					player.pos.y = 192.0f;
+					robot.pos.x = 512.0f;
+					robot.pos.y = 256.0f;
+				}
+
+				//タイマーの起動
+				isTimerStart = true;
+				//各ステージの座標に更新
+				player.centerPos.x = player.pos.x + player.width / 2.0f;
+				player.centerPos.y = player.pos.y + player.height / 2.0f;
+
+				player.frontPos.x = player.centerPos.x;
+				player.frontPos.y = player.centerPos.y + player.height;
+				player.backPos.x = player.centerPos.x;
+				player.backPos.y = player.centerPos.y - player.height;
+				player.rightPos.x = player.centerPos.x + player.width;
+				player.rightPos.y = player.centerPos.y;
+				player.leftPos.x = player.centerPos.x - player.width;
+				player.leftPos.y = player.centerPos.y;
+
+				robot.centerPos.x = robot.pos.x + robot.width / 2.0f;
+				robot.centerPos.y = robot.pos.y + robot.height / 2.0f;
+			}
+
+			/*---ステージセレクトに戻る---*/
+			if (keys[DIK_TAB] && !preKeys[DIK_TAB])
+			{
+				scene = STAGE_SELECT;
+			}
+
 			//==============================
 			//フレームタイマーのカウント
 			//==============================
@@ -1460,9 +1592,19 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 			/*---アイテムの更新処理---*/
 			if (currentStage[static_cast<int>(player.pos.y / kBlockSize)][static_cast<int>(player.pos.x / kBlockSize)] == ITEM)
 			{
-				currentStage[static_cast<int>(player.pos.y / kBlockSize)][static_cast<int>(player.pos.x / kBlockSize)] = FLOOR;
-				player.isItemGet = true;
+				//アイテムが置いてあった場所を床に変える
+				for (int y = 0; y < kMapSizeY; y++)
+				{
+					for (int x = 0; x < kMapSizeX; x++)
+					{
+						if (currentStage[y][x] == ITEM)
+						{
+							currentStage[y][x] = FLOOR;
+						}
+					}
+				}
 
+				player.isItemGet = true;
 			}
 
 			/*---ゴールの更新処理---*/
@@ -1559,7 +1701,6 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 			{
 				stars = 0;
 			}
-
 
 			///
 			/// ↑更新処理ここまで
@@ -1920,7 +2061,6 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 			//========================
 			//選択の更新処理
 			//========================
-
 
 			if (keys[DIK_SPACE] && !preKeys[DIK_SPACE])
 			{
