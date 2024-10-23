@@ -118,7 +118,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 	const float kBlockSize = 64.0f;
 
 	/*---シーン---*/
-	int nextStage = 1;
+	int nextStage = 0;
 
 	int scene = TITLE;
 
@@ -134,7 +134,22 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 	   9 = アイテム (ITEM)
 	   10 = 空白 (AIR)*/
 
-	   //ステージ1
+	//ステージ0(チュートリアル)
+	const int stage0[kMapSizeY][kMapSizeX] =
+	{
+		{ 10,10,10,10,10,10,10,10,10,10,10,10, },
+		{ 10,10,10, 0, 0, 0, 0, 0, 0, 0, 0,10, },
+		{ 10,10,10, 0, 1, 1, 1, 2, 4, 1, 0,10, },
+		{ 10,10,10, 0, 1, 1, 1, 2, 1, 1, 0,10, },
+		{ 10,10,10, 0, 2, 2, 3, 2, 2, 2, 0,10, },
+		{ 10,10,10, 0, 2, 2, 2, 2, 2, 9, 0,10, },
+		{ 10,10,10, 0, 0, 0, 0, 0, 0, 0, 0,10, },
+		{ 10,10,10,10,10,10,10,10,10,10,10,10, },
+		{ 10,10,10,10,10,10,10,10,10,10,10,10, },
+		{ 10,10,10,10,10,10,10,10,10,10,10,10, },
+	};
+
+	//ステージ1
 	const int stage1[kMapSizeY][kMapSizeX] =
 	{
 		{ 10,10,10,10,10,10,10,10,10,10,10,10, },// r:x 256 y128
@@ -170,7 +185,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 		{ 10,10,10,10,10,10,10,10,10,10,10,10, },//p:x 384 y 256
 		{ 10,10,10, 0, 0, 0, 0, 0, 0, 0,10,10, },//r:x 512 y 192
 		{ 10,10,10, 0, 1, 2, 1, 9, 1, 0,10,10, },
-		{ 10,10,10, 0, 1, 3, 2, 3, 1, 0,10,10, },
+		{ 10,10,10, 0, 1, 2, 2, 3, 1, 0,10,10, },
 		{ 10,10,10, 0, 1, 2, 2, 3, 1, 0,10,10, },
 		{ 10,10,10, 0, 6, 2, 3, 2, 1, 0,10,10, },
 		{ 10,10,10, 0, 4, 7, 9, 2, 1, 0,10,10, },
@@ -194,6 +209,18 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 		{ 10,10,10,10,10,10,10,10,10,10,10,10, },
 	};
 
+	/* 0 = ステージの壁(STAGE_WALL)
+	   1 = マップの壁 (WALL)
+	   2 = マップの床 (FLOOR)
+	   3 = 動かせるブロック (BOX)
+	   4 = ゴール地点(GOOL)
+	   5 = ダッシュパネル上 (DASH_UP)
+	   6 = ダッシュパネル下 (DASH_DOWN)
+	   7 = ダッシュパネル左 (DASH_LEFT)
+	   8 = ダッシュパネル右 (DASH_RIGHT)
+	   9 = アイテム (ITEM)
+	   10 = 空白 (AIR)*/
+
 	//ステージ5
 	const int stage5[kMapSizeY][kMapSizeX] =
 	{
@@ -209,18 +236,6 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 		{ 10,10,10,10,10,10,10,10,10,10,10,10, },
 	};
 
-	/* 0 = ステージの壁(STAGE_WALL)
-	   1 = マップの壁 (WALL)
-	   2 = マップの床 (FLOOR)
-	   3 = 動かせるブロック (BOX)
-	   4 = ゴール地点(GOOL)
-	   5 = ダッシュパネル上 (DASH_UP)
-	   6 = ダッシュパネル下 (DASH_DOWN)
-	   7 = ダッシュパネル左 (DASH_LEFT)
-	   8 = ダッシュパネル右 (DASH_RIGHT)
-	   9 = アイテム (ITEM)
-	   10 = 空白 (AIR)*/
-
 	//ステージ6
 	const int stage6[kMapSizeY][kMapSizeX] =
 	{
@@ -229,8 +244,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 		{ 10,10,10, 0, 1, 9, 8, 4, 7, 0,10,10, },
 		{ 10,10,10, 0, 1, 3, 2, 3, 1, 0,10,10, },
 		{ 10,10,10, 0, 2, 2, 2, 2, 1, 0,10,10, },
-		{ 10,10,10, 0, 2, 2, 3, 3, 9, 0,10,10, },
-		{ 10,10,10, 0, 2, 3, 1, 2, 2, 0,10,10, },
+		{ 10,10,10, 0, 2, 3, 2, 3, 9, 0,10,10, },
+		{ 10,10,10, 0, 2, 2, 1, 2, 2, 0,10,10, },
 		{ 10,10,10, 0, 0, 0, 0, 0, 0, 0,10,10, },
 		{ 10,10,10,10,10,10,10,10,10,10,10,10, },
 		{ 10,10,10,10,10,10,10,10,10,10,10,10, },
@@ -241,8 +256,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 	{
 		{ 10,10,10,10,10,10,10,10,10,10,10,10, },
 		{ 10,10,10, 0, 0, 0, 0, 0, 0, 0,10,10, },
-		{ 10,10,10, 0, 1, 2, 2, 3, 9, 0,10,10, },
-		{ 10,10,10, 0, 2, 3, 2, 2, 1, 0,10,10, },
+		{ 10,10,10, 0, 1, 2, 1, 3, 9, 0,10,10, },
+		{ 10,10,10, 0, 2, 2, 2, 2, 1, 0,10,10, },
 		{ 10,10,10, 0, 2, 2, 2, 4, 7, 0,10,10, },
 		{ 10,10,10, 0, 3, 2, 3, 3, 2, 0,10,10, },
 		{ 10,10,10, 0, 9, 1, 2, 1, 1, 0,10,10, },
@@ -256,11 +271,11 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 	{
 		{ 10,10,10,10,10,10,10,10,10,10,10,10, },
 		{ 10,10,10, 0, 0, 0, 0, 0, 0, 0,10,10, },
-		{ 10,10,10, 0, 4, 7, 1, 2, 9, 0,10,10, },
-		{ 10,10,10, 0, 5, 2, 2, 3, 2, 0,10,10, },
-		{ 10,10,10, 0, 2, 2, 2, 2, 3, 0,10,10, },
+		{ 10,10,10, 0, 1, 7, 1, 1, 1, 0,10,10, },
+		{ 10,10,10, 0, 1, 2, 2, 2, 6, 0,10,10, },
+		{ 10,10,10, 0, 3, 3, 3, 8, 4, 0,10,10, },
 		{ 10,10,10, 0, 2, 2, 3, 2, 2, 0,10,10, },
-		{ 10,10,10, 0, 1, 1, 9, 3, 1, 0,10,10, },
+		{ 10,10,10, 0, 2, 2, 3, 9, 1, 0,10,10, },
 		{ 10,10,10, 0, 0, 0, 0, 0, 0, 0,10,10, },
 		{ 10,10,10,10,10,10,10,10,10,10,10,10, },
 		{ 10,10,10,10,10,10,10,10,10,10,10,10, },
@@ -271,11 +286,11 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 	{
 		{ 10,10,10,10,10,10,10,10,10,10,10,10, },
 		{ 10,10,10, 0, 0, 0, 0, 0, 0, 0,10,10, },
-		{ 10,10,10, 0, 4, 7, 1, 2, 9, 0,10,10, },
-		{ 10,10,10, 0, 5, 2, 2, 3, 2, 0,10,10, },
-		{ 10,10,10, 0, 2, 2, 2, 2, 3, 0,10,10, },
-		{ 10,10,10, 0, 2, 2, 3, 2, 2, 0,10,10, },
-		{ 10,10,10, 0, 1, 1, 9, 3, 1, 0,10,10, },
+		{ 10,10,10, 0, 1, 2, 2, 3, 9, 0,10,10, },
+		{ 10,10,10, 0, 2, 3, 2, 2, 2, 0,10,10, },
+		{ 10,10,10, 0, 1, 2, 2, 2, 2, 0,10,10, },
+		{ 10,10,10, 0, 2, 3, 3, 4, 7, 0,10,10, },
+		{ 10,10,10, 0, 1, 2, 2, 5, 1, 0,10,10, },
 		{ 10,10,10, 0, 0, 0, 0, 0, 0, 0,10,10, },
 		{ 10,10,10,10,10,10,10,10,10,10,10,10, },
 		{ 10,10,10,10,10,10,10,10,10,10,10,10, },
@@ -285,16 +300,43 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 	const int stage10[kMapSizeY][kMapSizeX] =
 	{
 		{ 10,10,10,10,10,10,10,10,10,10,10,10, },
-		{ 10,10,10, 0, 0, 0, 0, 0, 0, 0,10,10, },
-		{ 10,10,10, 0, 4, 7, 1, 2, 9, 0,10,10, },
-		{ 10,10,10, 0, 5, 2, 2, 3, 2, 0,10,10, },
-		{ 10,10,10, 0, 2, 2, 2, 2, 3, 0,10,10, },
-		{ 10,10,10, 0, 2, 2, 3, 2, 2, 0,10,10, },
-		{ 10,10,10, 0, 1, 1, 9, 3, 1, 0,10,10, },
-		{ 10,10,10, 0, 0, 0, 0, 0, 0, 0,10,10, },
-		{ 10,10,10,10,10,10,10,10,10,10,10,10, },
+		{ 10,10, 0, 0, 0, 0, 0, 0, 0, 0,10,10, },
+		{ 10,10, 0, 2, 2, 2, 2, 2, 2, 0,10,10, },
+		{ 10,10, 0, 2, 2, 2, 2, 2, 2, 0,10,10, },
+		{ 10,10, 0, 2, 2, 2, 2, 2, 2, 0,10,10, },
+		{ 10,10, 0, 2, 2, 2, 2, 2, 2, 0,10,10, },
+		{ 10,10, 0, 2, 2, 2, 2, 2, 2, 0,10,10, },
+		{ 10,10, 0, 2, 2, 2, 2, 2, 2, 0,10,10, },
+		{ 10,10, 0, 0, 0, 0, 0, 0, 0, 0,10,10, },
 		{ 10,10,10,10,10,10,10,10,10,10,10,10, },
 	};
+
+	//ステージ11
+	const int stage11[kMapSizeY][kMapSizeX] =
+	{
+		{ 10,10,10,10,10,10,10,10,10,10,10,10, },
+		{ 10,10, 0, 0, 0, 0, 0, 0, 0, 0,10,10, },
+		{ 10,10, 0, 1, 9, 1, 1, 1, 1, 0,10,10, },
+		{ 10,10, 0, 1, 3, 3, 2, 2, 1, 0,10,10, },
+		{ 10,10, 0, 1, 2, 2, 2, 2, 1, 0,10,10, },
+		{ 10,10, 0, 1, 2, 3, 3, 2, 1, 0,10,10, },
+		{ 10,10, 0, 6, 2, 3, 9, 3, 1, 0,10,10, },
+		{ 10,10, 0, 4, 7, 2, 1, 2, 1, 0,10,10, },
+		{ 10,10, 0, 0, 0, 0, 0, 0, 0, 0,10,10, },
+		{ 10,10,10,10,10,10,10,10,10,10,10,10, },
+	};
+
+	/* 0 = ステージの壁(STAGE_WALL)
+	   1 = マップの壁 (WALL)
+	   2 = マップの床 (FLOOR)
+	   3 = 動かせるブロック (BOX)
+	   4 = ゴール地点(GOOL)
+	   5 = ダッシュパネル上 (DASH_UP)
+	   6 = ダッシュパネル下 (DASH_DOWN)
+	   7 = ダッシュパネル左 (DASH_LEFT)
+	   8 = ダッシュパネル右 (DASH_RIGHT)
+	   9 = アイテム (ITEM)
+	   10 = 空白 (AIR)*/
 
 	int currentStage[kMapSizeY][kMapSizeX];
 
@@ -435,7 +477,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 	//ステージ選択
 	int stageSelectHandle = Novice::LoadTexture("./Resources/images/stageSelectBackGraund.png");
 	int selectMojiHandle = Novice::LoadTexture("./Resources/images/stageSelect_char.png");
-	int selectHandle[11];
+	int selectHandle[12];
 	selectHandle[0] = Novice::LoadTexture("./Resources/images/selectStage0.png");
 	selectHandle[1] = Novice::LoadTexture("./Resources/images/selectStage1.png");
 	selectHandle[2] = Novice::LoadTexture("./Resources/images/selectStage2.png");
@@ -447,6 +489,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 	selectHandle[8] = Novice::LoadTexture("./Resources/images/selectStage8.png");
 	selectHandle[9] = Novice::LoadTexture("./Resources/images/selectStage9.png");
 	selectHandle[10] = Novice::LoadTexture("./Resources/images/selectStage10.png");
+	selectHandle[11] = Novice::LoadTexture("./Resources/images/selectStage10.png");
 
 
 	int selectCursor = Novice::LoadTexture("./Resources/images/stageSelectCursor.png");
@@ -544,7 +587,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 			//========================
 			if (keys[DIK_A] && !preKeys[DIK_A])
 			{
-				if (nextStage > 1)
+				if (nextStage > 0)
 				{
 					nextStage--;
 				}
@@ -568,7 +611,15 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 				{
 					for (int j = 0; j < kMapSizeX; j++)
 					{
-						if (nextStage == 1)
+						if (nextStage == 0)
+						{
+							currentStage[i][j] = stage0[i][j];
+							player.pos.x = 320.0f;
+							player.pos.y = 320.0f;
+							robot.pos.x = 320.0f;
+							robot.pos.y = 192.0f;
+						}
+						else if (nextStage == 1)
 						{
 							currentStage[i][j] = stage1[i][j];
 							player.pos.x = 256.0f;
@@ -583,6 +634,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 							player.pos.y = 256.0f;
 							robot.pos.x = 448.0f;
 							robot.pos.y = 128.0f;
+
 						}
 						else if (nextStage == 3)
 						{
@@ -611,27 +663,56 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 						else if (nextStage == 6)
 						{
 							currentStage[i][j] = stage6[i][j];
+							player.pos.x = 256.0f;
+							player.pos.y = 320.0f;
+							robot.pos.x = 384.0f;
+							robot.pos.y = 384.0f;
 						}
 						else if (nextStage == 7)
 						{
 							currentStage[i][j] = stage7[i][j];
+							player.pos.x = 256.0f;
+							player.pos.y = 256.0f;
+							robot.pos.x = 320.0f;
+							robot.pos.y = 384.0f;
 						}
 						else if (nextStage == 8)
 						{
 							currentStage[i][j] = stage8[i][j];
+							player.pos.x = 320.0f;
+							player.pos.y = 384.0f;
+							robot.pos.x = 256.0f;
+							robot.pos.y = 192.0f;
 						}
 						else if (nextStage == 9)
 						{
 							currentStage[i][j] = stage9[i][j];
+							player.pos.x = 384.0f;
+							player.pos.y = 256.0f;
+							robot.pos.x = 256.0f;
+							robot.pos.y = 256.0f;
 						}
 						else if (nextStage == 10)
 						{
 							currentStage[i][j] = stage10[i][j];
+							player.pos.x = 384.0f;
+							player.pos.y = 256.0f;
+							robot.pos.x = 256.0f;
+							robot.pos.y = 256.0f;
+						}
+						else if (nextStage == 11)
+						{
+							currentStage[i][j] = stage11[i][j];
+							player.pos.x = 512.0f;
+							player.pos.y = 192.0f;
+							robot.pos.x = 576.0f;
+							robot.pos.y = 192.0f;
 						}
 					}
 				}
 
 				//タイマーの起動
+				limitTimer = 180;
 				isTimerStart = true;
 				//各ステージの座標に更新
 				player.centerPos.x = player.pos.x + player.width / 2.0f;
@@ -669,38 +750,37 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 			Novice::DrawSprite(0, 0, stageSelectHandle, 1.0f, 1.0f, 0.0f, WHITE);
 			Novice::DrawSprite(280, 70, selectMojiHandle, 1.0f, 1.0f, 0.0f, WHITE);
 
-			for (int i = 1; i <= kMaxStages; i++)
+			for (int i = 0; i <= kMaxStages; i++)
 			{
 				// ステージ名
-				if (i <= 6)
+				if (i <= 5)
 				{
 					// 印
-					Novice::DrawSprite(70 + 130 * (i - 1), 100, selectHandle[i - 1], 0.4f, 0.4f, 0.0f, WHITE);
+					Novice::DrawSprite(70 + 130 * (i), 100, selectHandle[i], 0.4f, 0.4f, 0.0f, WHITE);
 				}
-				else if (6 <= i || i >= 10)
+				else if (5 <= i || i >= 10)
 				{
 					// 印
-					Novice::DrawSprite(70 + 130 * (i - 7), 240, selectHandle[i - 1], 0.4f, 0.4f, 0.0f, WHITE);
+					Novice::DrawSprite(70 + 130 * (i - 6), 240, selectHandle[i], 0.4f, 0.4f, 0.0f, WHITE);
 				}
 
 
 				if (nextStage == i)
 				{
-					if (i <= 6)
+					if (i <= 5)
 					{
 						// 印
-						Novice::DrawSprite(70 + 130 * (i - 1), 100, selectCursor, 0.4f, 0.4f, 0.0f, WHITE);
+						Novice::DrawSprite(70 + 130 * i, 100, selectCursor, 0.4f, 0.4f, 0.0f, WHITE);
 					}
-					else if (6 <= i || i >= 12)
+					else if (5 <= i || i >= 10)
 					{
 						// 印
-						Novice::DrawSprite(70 + 130 * (i - 7), 240, selectCursor, 0.4f, 0.4f, 0.0f, WHITE);
+						Novice::DrawSprite(70 + 130 * (i - 6), 240, selectCursor, 0.4f, 0.4f, 0.0f, WHITE);
 					}
-
 				}
-
-
 			}
+
+			Novice::ScreenPrintf(0, 0, "nextStage%d", nextStage);
 
 			///
 			/// ↑描画処理ここまで
@@ -1618,26 +1698,30 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 			}
 
 			/*---ダッシュパネルの更新処理---*/
-			if (currentStage[static_cast<int>(robot.pos.y / kBlockSize)][static_cast<int>(robot.pos.x / kBlockSize)] == DASH_UP)
+			if (player.isItemGet)
 			{
-				player.canMove = false;
-				robot.pos.y -= 0.5f;
+				if (currentStage[static_cast<int>(robot.pos.y / kBlockSize)][static_cast<int>(robot.pos.x / kBlockSize)] == DASH_UP)
+				{
+					player.canMove = false;
+					robot.pos.y -= 0.5f;
+				}
+				else if (currentStage[static_cast<int>(robot.pos.y / kBlockSize)][static_cast<int>(robot.pos.x / kBlockSize)] == DASH_DOWN)
+				{
+					player.canMove = false;
+					robot.pos.y += 0.5f;
+				}
+				else if (currentStage[static_cast<int>(robot.pos.y / kBlockSize)][static_cast<int>(robot.pos.x / kBlockSize)] == DASH_LEFT)
+				{
+					player.canMove = false;
+					robot.pos.x -= 0.5f;
+				}
+				else if (currentStage[static_cast<int>(robot.pos.y / kBlockSize)][static_cast<int>(robot.pos.x / kBlockSize)] == DASH_RIGHT)
+				{
+					player.canMove = false;
+					robot.pos.x += 0.5f;
+				}
 			}
-			else if (currentStage[static_cast<int>(robot.pos.y / kBlockSize)][static_cast<int>(robot.pos.x / kBlockSize)] == DASH_DOWN)
-			{
-				player.canMove = false;
-				robot.pos.y += 0.5f;
-			}
-			else if (currentStage[static_cast<int>(robot.pos.y / kBlockSize)][static_cast<int>(robot.pos.x / kBlockSize)] == DASH_LEFT)
-			{
-				player.canMove = false;
-				robot.pos.x -= 0.5f;
-			}
-			else if (currentStage[static_cast<int>(robot.pos.y / kBlockSize)][static_cast<int>(robot.pos.x / kBlockSize)] == DASH_RIGHT)
-			{
-				player.canMove = false;
-				robot.pos.x += 0.5f;
-			}
+
 
 			//===========================
 			// 制限時間タイマー
