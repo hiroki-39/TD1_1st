@@ -134,7 +134,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 	   9 = アイテム (ITEM)
 	   10 = 空白 (AIR)*/
 
-	//ステージ0(チュートリアル)
+	   //ステージ0(チュートリアル)
 	const int stage0[kMapSizeY][kMapSizeX] =
 	{
 		{ 10,10,10,10,10,10,10,10,10,10,10,10, },
@@ -221,7 +221,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 	   9 = アイテム (ITEM)
 	   10 = 空白 (AIR)*/
 
-	//ステージ5
+	   //ステージ5
 	const int stage5[kMapSizeY][kMapSizeX] =
 	{
 		{ 10,10,10,10,10,10,10,10,10,10,10,10, },//p:x 448 y 192
@@ -602,7 +602,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 					nextStage--;
 				}
 				//SE
-				Novice::PlayAudio(soundHandle[1], false, 0.2f);
+				Novice::PlayAudio(soundHandle[1], false, 0.1f);
 			}
 			else if (keys[DIK_D] && !preKeys[DIK_D])
 			{
@@ -612,7 +612,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 				}
 
 				//SE
-				Novice::PlayAudio(soundHandle[1], false, 0.2f);
+				Novice::PlayAudio(soundHandle[1], false, 0.1f);
 			}
 
 			if (keys[DIK_SPACE] && !preKeys[DIK_SPACE])
@@ -799,7 +799,6 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 				}
 			}
 
-			Novice::ScreenPrintf(0, 0, "nextStage%d", nextStage);
 
 			///
 			/// ↑描画処理ここまで
@@ -888,7 +887,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 						}
 						//SE
 						Novice::PlayAudio(soundHandle[2], false, 0.2f);
-						Novice::PlayAudio(soundHandle[3], false, 0.2f);
+						Novice::PlayAudio(soundHandle[3], false, 0.1f);
 					}
 
 
@@ -950,7 +949,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 						}
 						//SE
 						Novice::PlayAudio(soundHandle[2], false, 0.2f);
-						Novice::PlayAudio(soundHandle[3], false, 0.2f);
+						Novice::PlayAudio(soundHandle[3], false, 0.1f);
 					}
 
 					//下
@@ -1015,7 +1014,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 
 						//SE
 						Novice::PlayAudio(soundHandle[2], false, 0.2f);
-						Novice::PlayAudio(soundHandle[3], false, 0.2f);
+						Novice::PlayAudio(soundHandle[3], false, 0.1f);
 					}
 
 					//下
@@ -1077,7 +1076,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 						}
 						//SE
 						Novice::PlayAudio(soundHandle[2], false, 0.2f);
-						Novice::PlayAudio(soundHandle[3], false, 0.2f);
+						Novice::PlayAudio(soundHandle[3], false, 0.1f);
 					}
 					//ロボットが動くこと出来るかの判定
 					robot.canMove = true;
@@ -1708,6 +1707,9 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 				}
 
 				player.isItemGet = true;
+
+				//SE
+				Novice::PlayAudio(soundHandle[5], false, 0.2f);
 			}
 
 			/*---ゴールの更新処理---*/
@@ -1717,6 +1719,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 				{
 					isTimerStart = false;
 					scene = CLEAR;
+					Novice::StopAudio(playHandle[2]);
+					break;
 				}
 			}
 
@@ -2143,7 +2147,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 			//========================
 			//選択の更新処理
 			//========================
-			
+
 			if (keys[DIK_SPACE] && !preKeys[DIK_SPACE])
 			{
 				scene = STAGE_SELECT;
@@ -2190,7 +2194,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 			{
 				playHandle[3] = Novice::PlayAudio(bgmHandle[3], false, 0.1f);
 			}
-
+			
 			///
 			/// ↓描画処理ここから
 			///
