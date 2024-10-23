@@ -608,7 +608,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 							robot.pos.x = 512.0f;
 							robot.pos.y = 256.0f;
 						}
-						/*else if (nextStage == 6)
+						else if (nextStage == 6)
 						{
 							currentStage[i][j] = stage6[i][j];
 						}
@@ -627,7 +627,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 						else if (nextStage == 10)
 						{
 							currentStage[i][j] = stage10[i][j];
-						}*/
+						}
 					}
 				}
 
