@@ -511,18 +511,20 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 	int playHandle[5] = { -1 };
 
 	int bgmHandle[5];
-	bgmHandle[0] = Novice::LoadAudio("./Resources/Sounds/maou_bgm_cyber13.mp3");//title
-	bgmHandle[1] = Novice::LoadAudio("./Resources/Sounds/maou_bgm_cyber07.mp3");//stageselect
-	bgmHandle[2] = Novice::LoadAudio("./Resources/Sounds/maou_bgm_acoustic35.mp3");//gamePlay
-	//bgmHandle[3] = Novice::LoadAudio("./Resources/Sounds/maou_game_jingle03.mp3");//clear
-	//bgmHandle[4] = Novice::LoadAudio("./Resources/Sounds/maou_game_jingle08.mp3");//gameover
+	bgmHandle[0] = Novice::LoadAudio("./Resources/Sounds/title.mp3");//title
+	bgmHandle[1] = Novice::LoadAudio("./Resources/Sounds/stageSelect.mp3");//stageselect
+	bgmHandle[2] = Novice::LoadAudio("./Resources/Sounds/gamePlay.mp3");//gamePlay
+	bgmHandle[3] = Novice::LoadAudio("./Resources/Sounds/clear.mp3");//clear
+	bgmHandle[4] = Novice::LoadAudio("./Resources/Sounds/sousou4.mp3");//gameover
 	//SE
-	int soundHandle[5];
-	//soundHandle[0] = Novice::LoadAudio("./Resources/Sounds/maou_se_system43.mp3");//決定
-	soundHandle[1] = Novice::LoadAudio("./Resources/Sounds/maou_se_sound_paper01.mp3");//選択カーソルの移動時
-	soundHandle[2] = Novice::LoadAudio("./Resources/Sounds/maou_se_sound_footstep02.mp3");//プレイヤー足音
-	soundHandle[3] = Novice::LoadAudio("./Resources/Sounds/maou_se_sound_machine09.mp3");//ロボット足音
-	soundHandle[4] = Novice::LoadAudio("./Resources/Sounds/maou_se_battle14.mp3");//掴む
+	int soundHandle[8];
+	soundHandle[0] = Novice::LoadAudio("./Resources/Sounds/select.mp3");//決定
+	soundHandle[1] = Novice::LoadAudio("./Resources/Sounds/cursor.mp3");//選択カーソルの移動時
+	soundHandle[2] = Novice::LoadAudio("./Resources/Sounds/player.mp3");//プレイヤー足音
+	soundHandle[3] = Novice::LoadAudio("./Resources/Sounds/robot.mp3");//ロボット足音
+	soundHandle[4] = Novice::LoadAudio("./Resources/Sounds/grabBlock.mp3");//掴む
+	soundHandle[5] = Novice::LoadAudio("./Resources/Sounds/itemget_se.mp3");
+	soundHandle[6] = Novice::LoadAudio("./Resources/Sounds/clear_se.mp3");
 
 	// ウィンドウの×ボタンが押されるまでループ
 	while (Novice::ProcessMessage() == 0)
@@ -552,6 +554,14 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 			if (keys[DIK_SPACE] && !preKeys[DIK_SPACE])
 			{
 				scene = STAGE_SELECT;
+				Novice::StopAudio(playHandle[0]);
+				break;
+			}
+
+			/*---BGN再生---*/
+			if (!Novice::IsPlayingAudio(playHandle[0]) || playHandle[0] == -1)
+			{
+				playHandle[0] = Novice::PlayAudio(bgmHandle[0], false, 0.1f);
 			}
 
 			///
@@ -592,7 +602,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 					nextStage--;
 				}
 				//SE
-				Novice::PlayAudio(soundHandle[1], false, 0.7f);
+				Novice::PlayAudio(soundHandle[1], false, 0.2f);
 			}
 			else if (keys[DIK_D] && !preKeys[DIK_D])
 			{
@@ -602,7 +612,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 				}
 
 				//SE
-				Novice::PlayAudio(soundHandle[1], false, 0.7f);
+				Novice::PlayAudio(soundHandle[1], false, 0.2f);
 			}
 
 			if (keys[DIK_SPACE] && !preKeys[DIK_SPACE])
@@ -734,6 +744,15 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 				player.isItemGet = false;
 
 				scene = GAME;
+				Novice::StopAudio(playHandle[1]);
+				break;
+			}
+
+
+			/*---BGN再生---*/
+			if (!Novice::IsPlayingAudio(playHandle[1]) || playHandle[1] == -1)
+			{
+				playHandle[1] = Novice::PlayAudio(bgmHandle[1], false, 0.1f);
 			}
 
 			///
@@ -867,9 +886,9 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 							robot.pos.y += robot.speed;
 							robot.centerPos.y += robot.speed;
 						}
-
 						//SE
-						Novice::PlayAudio(soundHandle[2], false, 0.7f);
+						Novice::PlayAudio(soundHandle[2], false, 0.2f);
+						Novice::PlayAudio(soundHandle[3], false, 0.2f);
 					}
 
 
@@ -930,7 +949,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 							robot.centerPos.x += robot.speed;
 						}
 						//SE
-						Novice::PlayAudio(soundHandle[2], false, 0.7f);
+						Novice::PlayAudio(soundHandle[2], false, 0.2f);
+						Novice::PlayAudio(soundHandle[3], false, 0.2f);
 					}
 
 					//下
@@ -994,7 +1014,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 						}
 
 						//SE
-						Novice::PlayAudio(soundHandle[2], false, 0.7f);
+						Novice::PlayAudio(soundHandle[2], false, 0.2f);
+						Novice::PlayAudio(soundHandle[3], false, 0.2f);
 					}
 
 					//下
@@ -1054,9 +1075,9 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 							robot.pos.x -= robot.speed;
 							robot.centerPos.x -= robot.speed;
 						}
-
 						//SE
-						Novice::PlayAudio(soundHandle[2], false, 0.7f);
+						Novice::PlayAudio(soundHandle[2], false, 0.2f);
+						Novice::PlayAudio(soundHandle[3], false, 0.2f);
 					}
 					//ロボットが動くこと出来るかの判定
 					robot.canMove = true;
@@ -1138,8 +1159,6 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 					if (keys[DIK_SPACE])
 					{
 						player.grabBlock = true;
-						//SE
-						Novice::PlayAudio(soundHandle[4], false, 0.7f);
 					}
 					else
 					{
@@ -1246,9 +1265,9 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 								robot.pos.y += robot.speed;
 								robot.centerPos.y += robot.speed;
 							}
-
 							//SE
-							Novice::PlayAudio(soundHandle[2], false, 0.7f);
+							Novice::PlayAudio(soundHandle[2], false, 0.2f);
+							Novice::PlayAudio(soundHandle[3], false, 0.2f);
 						}
 
 						//下
@@ -1331,7 +1350,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 								robot.centerPos.y -= robot.speed;
 							}
 							//SE
-							Novice::PlayAudio(soundHandle[2], false, 0.7f);
+							Novice::PlayAudio(soundHandle[2], false, 0.2f);
+							Novice::PlayAudio(soundHandle[3], false, 0.2f);
 						}
 					}
 					else if (player.direction == LEFT || player.direction == RIGHT)
@@ -1415,9 +1435,9 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 								robot.pos.x += robot.speed;
 								robot.centerPos.x += robot.speed;
 							}
-
 							//SE
-							Novice::PlayAudio(soundHandle[2], false, 0.7f);
+							Novice::PlayAudio(soundHandle[2], false, 0.2f);
+							Novice::PlayAudio(soundHandle[3], false, 0.2f);
 						}
 
 						//右
@@ -1501,7 +1521,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 
 							}
 							//SE
-							Novice::PlayAudio(soundHandle[2], false, 0.7f);
+							Novice::PlayAudio(soundHandle[2], false, 0.2f);
+							Novice::PlayAudio(soundHandle[3], false, 0.2f);
 						}
 					}
 
@@ -1649,6 +1670,8 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 			if (keys[DIK_TAB] && !preKeys[DIK_TAB])
 			{
 				scene = STAGE_SELECT;
+				Novice::StopAudio(playHandle[2]);
+				break;
 			}
 
 			//==============================
@@ -1722,7 +1745,6 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 				}
 			}
 
-
 			//===========================
 			// 制限時間タイマー
 			//===========================
@@ -1785,6 +1807,16 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 			{
 				stars = 0;
 			}
+
+			//===========================
+			// BGM
+			//===========================
+			/*---BGN再生---*/
+			if (!Novice::IsPlayingAudio(playHandle[2]) || playHandle[2] == -1)
+			{
+				playHandle[2] = Novice::PlayAudio(bgmHandle[2], false, 0.1f);
+			}
+
 
 			///
 			/// ↑更新処理ここまで
@@ -2111,19 +2143,18 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 			//========================
 			//選択の更新処理
 			//========================
-			if (keys[DIK_A] && !preKeys[DIK_A])
-			{
-
-			}
-			else if (keys[DIK_D] && !preKeys[DIK_D])
-			{
-
-			}
-
+			
 			if (keys[DIK_SPACE] && !preKeys[DIK_SPACE])
 			{
-
 				scene = STAGE_SELECT;
+				Novice::StopAudio(playHandle[4]);
+				break;
+			}
+
+			/*---BGN再生---*/
+			if (!Novice::IsPlayingAudio(playHandle[4]) || playHandle[4] == -1)
+			{
+				playHandle[4] = Novice::PlayAudio(bgmHandle[4], false, 0.1f);
 			}
 
 			///
@@ -2148,9 +2179,16 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 
 			if (keys[DIK_SPACE] && !preKeys[DIK_SPACE])
 			{
-
 				limitTimer = 180;
 				scene = STAGE_SELECT;
+				Novice::StopAudio(playHandle[3]);
+				break;
+			}
+
+			/*---BGN再生---*/
+			if (!Novice::IsPlayingAudio(playHandle[3]) || playHandle[3] == -1)
+			{
+				playHandle[3] = Novice::PlayAudio(bgmHandle[3], false, 0.1f);
 			}
 
 			///
